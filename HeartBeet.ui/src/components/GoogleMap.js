@@ -12,9 +12,9 @@ function Map() {
   }, [ref, map]);
   return (
     <div ref={ref}
-    zoom={10}
-    center={{ lat: -34.397, lng: 150.644 }}
-    style={{ height: '200px', width: 'auto' }}>
+    center={{ lat: 36.1627, lng: 86.7816 }}
+    zoom={0}
+    style={{ height: '400px', width: '800px' }}>
     </div>
   );
 }
