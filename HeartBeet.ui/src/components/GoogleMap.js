@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function Map() {
-  // eslint-disable-next-line no-undef
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
 
-  // const ref = useRef(null);
-  // eslint-disable-next-line no-undef
-  const [map, setMap] = useState(google.maps.Map);
+  const [map, setMap] = useState();
 
   React.useEffect(() => {
     if (ref.current && !map) {
@@ -14,7 +11,10 @@ function Map() {
     }
   }, [ref, map]);
   return (
-    <div ref={ref}>
+    <div ref={ref}
+    zoom={10}
+    center={{ lat: -34.397, lng: 150.644 }}
+    style={{ height: '200px', width: 'auto' }}>
     </div>
   );
 }
