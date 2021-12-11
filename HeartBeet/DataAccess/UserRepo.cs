@@ -47,7 +47,6 @@ namespace HeartBeet.DataAccess
 
             var userId = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = userId;
-
         }
     }
 }
