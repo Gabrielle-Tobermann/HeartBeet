@@ -30,5 +30,28 @@ namespace HeartBeet.DataAccess
 
             return items;
         }
+
+        internal void AddItem(Item newItem)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"INSERT INTO [dbo].[Item]
+                               ([donationId]
+                               ,[food]
+                               ,[quantity]
+                               ,[datePrepared]
+                               ,[bestBy])
+                                Output inserted.Id
+                             VALUES
+                                   (@donationId
+                                   ,@food
+                                   ,@quantity
+                                   ,@datePrepared
+                                   ,@bestBy)";
+
+            var itemId = db.ExecuteScalar<Guid>(sql, newItem);
+            newItem.Id = itemId;
+
+        }
     }
 }
