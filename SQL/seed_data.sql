@@ -13,8 +13,8 @@ INSERT INTO [dbo].[Item]
            '4BC01C12-22E1-41E1-9B2D-41A7EAF6105F',
            'Green Beans',
            10,
-           cast('2021-11-11 13:23:44.000' as datetime),
-		   cast('2021-12-11 13:23:44.000' as datetime))
+           cast('2021-11-11' as date),
+		   cast('2021-12-11' as date))
 
 INSERT INTO [dbo].[Donation]
            ([id]
