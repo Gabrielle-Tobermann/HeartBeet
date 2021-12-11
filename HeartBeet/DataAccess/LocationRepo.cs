@@ -18,7 +18,7 @@ namespace HeartBeet.DataAccess
             _connectionString = config.GetConnectionString("HeartBeet");
         }
 
-        public Location GetLocation(Guid id)
+        internal Location GetLocation(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -31,7 +31,7 @@ namespace HeartBeet.DataAccess
             return location;
         }
 
-        public IEnumerable<Location> GetUserLocation(Guid id)
+        internal IEnumerable<Location> GetUserLocation(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 

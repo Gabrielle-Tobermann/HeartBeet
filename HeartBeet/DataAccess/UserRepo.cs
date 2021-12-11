@@ -18,7 +18,7 @@ namespace HeartBeet.DataAccess
             _connectionString = config.GetConnectionString("HeartBeet");
         }
 
-        public User GetUserByUserId(Guid id)
+        internal User GetUserByUserId(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 

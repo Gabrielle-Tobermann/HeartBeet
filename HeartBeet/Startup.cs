@@ -1,3 +1,4 @@
+using HeartBeet.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,11 @@ namespace HeartBeet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddTransient<ItemRepo>();
+            services.AddTransient<LocationRepo>();
+            services.AddTransient<UserRepo>();
+            services.AddTransient<DonationRepo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

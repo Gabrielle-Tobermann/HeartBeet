@@ -18,7 +18,7 @@ namespace HeartBeet.DataAccess
             _connectionString = config.GetConnectionString("HeartBeet");
         }
 
-        public IEnumerable<Item> GetDonationItems(Guid id)
+        internal IEnumerable<Item> GetDonationItems(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
 

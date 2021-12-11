@@ -18,5 +18,18 @@ namespace HeartBeet.Controllers
         {
             _repo = repo;
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetLocation(Guid id)
+        {
+            var location = _repo.GetLocation(id);
+
+            if (location == null)
+            {
+                NotFound("Location not found.");
+            }
+
+            return Ok(location);
+        }
     }
 }

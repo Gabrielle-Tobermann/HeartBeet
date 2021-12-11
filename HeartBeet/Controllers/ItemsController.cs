@@ -18,5 +18,18 @@ namespace HeartBeet.Controllers
         {
             _repo = repo;
         }
+
+        [HttpGet("{donationId}")]
+        public IActionResult GetDonationItems(Guid donationId)
+        {
+           var items =  _repo.GetDonationItems(donationId);
+
+            if (items == null)
+            {
+                NotFound("This donation does not have any items.");
+            }
+
+            return Ok(items);
+        }
     }
 }

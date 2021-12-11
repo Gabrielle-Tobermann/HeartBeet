@@ -18,5 +18,18 @@ namespace HeartBeet.Controllers
         {
             _repo = repo;
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUser(Guid id)
+        {
+            var user = _repo.GetUserByUserId(id);
+
+            if (user == null)
+            {
+                NotFound("User not found.");
+            }
+
+            return Ok(user);
+        }
     }
 }

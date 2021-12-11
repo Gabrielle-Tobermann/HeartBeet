@@ -19,5 +19,13 @@ namespace HeartBeet.Controllers
             _repo = repo;
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var donations = _repo.GetAllDonations();
+
+            return Ok(donations);
+        }
+
     }
 }
