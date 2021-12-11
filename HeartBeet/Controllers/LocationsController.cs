@@ -1,4 +1,5 @@
 ﻿using HeartBeet.DataAccess;
+using HeartBeet.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,6 +31,14 @@ namespace HeartBeet.Controllers
             }
 
             return Ok(location);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Location newLocation)
+        {
+            _repo.AddLocation(newLocation);
+
+            return Created($"api/users/{newLocation.Id}", newLocation);
         }
     }
 }

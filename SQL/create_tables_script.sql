@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Donation](
-	[id] [uniqueidentifier] NOT NULL,
+	[id] [uniqueidentifier] NOT NULL primary key,
 	[isDelivery] [bit] NOT NULL,
 	[donorId] [uniqueidentifier] NOT NULL,
 	[recipientId] [uniqueidentifier] NULL,
@@ -21,6 +21,9 @@ CREATE TABLE [dbo].[Donation](
 GO
 
 ALTER TABLE [dbo].[Donation] ADD  CONSTRAINT [DF_Donation_id]  DEFAULT (newid()) FOR [id]
+ALTER TABLE [dbo].[Donation] ADD  CONSTRAINT [DF_Donation_deliveryLocationId]  DEFAULT (NULL) FOR [deliveryLocationId]
+ALTER TABLE [dbo].[Donation] ADD  CONSTRAINT [DF_Donation_recipientId]  DEFAULT (NULL) FOR [recipientId]
+
 GO
 
 
@@ -29,8 +32,8 @@ CREATE TABLE [dbo].[Item](
 	[donationId] [uniqueidentifier] NOT NULL,
 	[food] [varchar](50) NOT NULL,
 	[quantity] [varchar](50) NOT NULL,
-	[datePrepared] [datetime] NULL,
-	[bestBy] [datetime] NULL,
+	[datePrepared] [date] NULL,
+	[bestBy] [date] NULL,
  CONSTRAINT [PK_Item] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -74,6 +77,7 @@ GO
 
 CREATE TABLE [dbo].[User](
 	[id] [uniqueidentifier] NOT NULL,
+	[uid] [uniqueidentifier] NULL,
 	[name] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
 	[userType] [varchar](50) NOT NULL,

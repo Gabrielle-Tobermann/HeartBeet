@@ -43,5 +43,28 @@ namespace HeartBeet.DataAccess
 
             return locations;
         }
+
+        internal void AddLocation(Location newLocation)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"INSERT INTO [dbo].[Location]
+                       ([userId]
+                       ,[street]
+                       ,[city]
+                       ,[state]
+                       ,[zip])
+                        Output inserted.Id
+                         VALUES
+                               (@userId
+                               ,@street
+                               ,@city
+                               ,@state
+                               ,@zip)";
+
+            var locationId = db.ExecuteScalar<Guid>(sql, newLocation);
+            newLocation.Id = locationId;
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HeartBeet.DataAccess;
+using HeartBeet.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,6 +31,14 @@ namespace HeartBeet.Controllers
             }
 
             return Ok(items);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Item newItem)
+        {
+            _repo.AddItem(newItem);
+
+            return Created($"api/users/{newItem.Id}", newItem);
         }
     }
 }

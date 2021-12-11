@@ -23,12 +23,30 @@ namespace HeartBeet.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"select *
-                        from User
+                        from [User]
                         where id = @id";
 
             var user = db.QueryFirstOrDefault<User>(sql, new { id });
 
             return user;
+        }
+
+        internal void AddUser(User newUser)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"INSERT INTO [dbo].[User]
+                       ([name]
+                       ,[email]
+                       ,[userType])
+                        Output inserted.Id
+                        VALUES
+                            (@name
+                            ,@email
+                            ,@userType)";
+
+            var userId = db.ExecuteScalar<Guid>(sql, newUser);
+            newUser.Id = userId;
         }
     }
 }
