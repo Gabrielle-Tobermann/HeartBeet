@@ -39,5 +39,51 @@ namespace HeartBeet.Controllers
             return Created($"api/donations/{_donation.Id}", _donation);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update(Guid id, Donation donation)
+        {
+            var updateItem = _repo.UpdateDonation(id, donation);
+
+            return Ok(updateItem);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            _repo.DeleteDonation(id);
+
+            return Ok();
+        }
+
+        [HttpPut("claim/{id}")]
+        public IActionResult ClaimDonation(Guid id)
+        {
+            var donation = _repo.GetDonationById(id);
+
+            if (donation == null)
+            {
+                NotFound("User not found.");
+            }
+
+            donation.Claimed = !donation.Claimed;
+
+            return Ok(_repo.UpdateDonation(id, donation));
+        }
+
+        [HttpPut("receive/{id}")]
+        public IActionResult ReceiveDonation(Guid id)
+        {
+            var donation = _repo.GetDonationById(id);
+
+            if (donation == null)
+            {
+                NotFound("User not found.");
+            }
+
+            donation.Received = !donation.Received;
+
+            return Ok(_repo.UpdateDonation(id, donation));
+        }
+
     }
 }

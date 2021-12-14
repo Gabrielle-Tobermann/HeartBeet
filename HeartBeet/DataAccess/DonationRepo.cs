@@ -67,7 +67,7 @@ namespace HeartBeet.DataAccess
                 var itemParams = new
                 {
                     Id = new Guid(),
-                    donationId = newDonation.Id,
+                    DonationId = newDonation.Id,
                     food = item.Food,
                     Quantity = item.Quantity,
                     DatePrepared = item.DatePrepared,
@@ -79,6 +79,50 @@ namespace HeartBeet.DataAccess
             }
 
 
+        }
+
+        internal Donation UpdateDonation(Guid id, Donation donation)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Donation]
+                       SET [isDelivery] = @isDelivery
+                          ,[donorId] = @donorId
+                          ,[recipientId] = @recipientId
+                          ,[claimed] = @claimed
+                          ,[received] = @received
+                          ,[locationId] = @locationId
+                          ,[deliveryLocationId] = @deliveryLocationId
+                            output inserted.*
+                         WHERE id = @id";
+
+            id = donation.Id;
+            var updateDonation = db.QuerySingleOrDefault<Donation>(sql, donation);
+
+            return updateDonation;
+        }
+
+        internal void DeleteDonation(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE FROM [dbo].[Donation]
+                        WHERE id = @id";
+
+            var delete = db.QuerySingleOrDefault<Donation>(sql, new { id });
+        }
+
+        internal Donation GetDonationById(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from Donation
+                        where id = @id";
+
+            var Donation = db.QuerySingleOrDefault<Donation>(sql, new { id });
+
+            return Donation;
         }
     }
 }

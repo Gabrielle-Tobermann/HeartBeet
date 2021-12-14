@@ -40,5 +40,28 @@ namespace HeartBeet.Controllers
 
             return Created($"api/users/{newLocation.Id}", newLocation);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(Guid id, Location location)
+        {
+            var updateLocation = _repo.UpdateLocation(id, location);
+
+            return Ok(updateLocation);
+        }
+
+        [HttpPut("delete/{id}")]
+        public IActionResult SoftDelete(Guid id)
+        {
+            var location = _repo.GetLocationById(id);
+
+            if (location == null)
+            {
+                NotFound("User not found.");
+            }
+
+            location.SoftDelete = !location.SoftDelete;
+
+            return Ok(_repo.UpdateLocation(id, location));
+        }
     }
 }
