@@ -86,5 +86,18 @@ namespace HeartBeet.DataAccess
 
             return updateLocation;
         }
+
+        internal Location GetLocationById(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from Location
+                        where id = @id";
+
+            var location = db.QuerySingleOrDefault<Location>(sql, new { id });
+
+            return location;
+        }
     }
 }
