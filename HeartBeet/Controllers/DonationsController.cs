@@ -55,5 +55,35 @@ namespace HeartBeet.Controllers
             return Ok();
         }
 
+        [HttpPut("claim/{id}")]
+        public IActionResult ClaimDonation(Guid id)
+        {
+            var donation = _repo.GetDonationById(id);
+
+            if (donation == null)
+            {
+                NotFound("User not found.");
+            }
+
+            donation.Claimed = !donation.Claimed;
+
+            return Ok(_repo.UpdateDonation(id, donation));
+        }
+
+        [HttpPut("receive/{id}")]
+        public IActionResult ReceiveDonation(Guid id)
+        {
+            var donation = _repo.GetDonationById(id);
+
+            if (donation == null)
+            {
+                NotFound("User not found.");
+            }
+
+            donation.Received = !donation.Received;
+
+            return Ok(_repo.UpdateDonation(id, donation));
+        }
+
     }
 }

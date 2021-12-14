@@ -112,5 +112,17 @@ namespace HeartBeet.DataAccess
             var delete = db.QuerySingleOrDefault<Donation>(sql, new { id });
         }
 
+        internal Donation GetDonationById(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from Donation
+                        where id = @id";
+
+            var Donation = db.QuerySingleOrDefault<Donation>(sql, new { id });
+
+            return Donation;
+        }
     }
 }
