@@ -58,6 +58,7 @@ namespace HeartBeet.DataAccess
                           ,[name] = @name
                           ,[email] = @email
                           ,[userType] = @userType
+                          ,[softDelete] = @softDelete
                         output inserted.*
                      WHERE id = @id";
 
@@ -65,6 +66,19 @@ namespace HeartBeet.DataAccess
             var updateUser = db.QuerySingleOrDefault<User>(sql, user);
 
             return updateUser;
+        }
+
+        internal User GetUserById(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * 
+                        from [User]
+                        where id = @id";
+
+            var user = db.QuerySingleOrDefault<User>(sql, new { id });
+
+            return user;
         }
     }
 }

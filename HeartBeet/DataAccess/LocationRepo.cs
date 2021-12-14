@@ -77,6 +77,7 @@ namespace HeartBeet.DataAccess
                           ,[city] = @city
                           ,[state] = @state
                           ,[zip] = @zip
+                          ,[softDelete] = @softDelete
                         output inserted.*
                      WHERE id = @id";
 

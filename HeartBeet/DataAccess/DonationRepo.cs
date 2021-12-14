@@ -93,6 +93,7 @@ namespace HeartBeet.DataAccess
                           ,[received] = @received
                           ,[locationId] = @locationId
                           ,[deliveryLocationId] = @deliveryLocationId
+                          ,[softDelete] = @softDelete
                             output inserted.*
                          WHERE id = @id";
 

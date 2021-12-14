@@ -24,7 +24,8 @@ INSERT INTO [dbo].[Donation]
            ,[claimed]
            ,[received]
            ,[locationId]
-           ,[deliveryLocationId])
+           ,[deliveryLocationId]
+		   ,[softDelete])
      VALUES
            ('4BC01C12-22E1-41E1-9B2D-41A7EAF6105F',
            0,
@@ -33,32 +34,37 @@ INSERT INTO [dbo].[Donation]
            1,
            0,
 		   'C800FE94-DD1F-4A15-A12A-D3A233914515',
-		   NULL)
+		   NULL,
+		   0)
 
 INSERT INTO [dbo].[User]
            ([id]
            ,[name]
            ,[email]
            ,[userType]
-           ,[uid])
+           ,[uid]
+		   ,[softDelete])
      VALUES
            ('7AAF147D-5D19-423D-ABC8-C0E5906DB578',
            'Nashville Food Project',
 		   'nashvillefoodproject@gmail.com',
 		   'recipient',
-		   NULL),
+		   NULL,
+		   0),
 
 		    ('8B864B59-FAD1-414C-8811-D8CD9FA795E7',
 			'Whole Foods Market',
 			'wholefoods@gmail.com',
 			'donor',
-			NULL),
+			NULL,
+			0),
 
 		    ('9440D2E0-06DA-4930-AE5E-EF93A19F8399',
 			'Publix Super Markets Inc.',
 			'publix@gmail.com',
 			'donor',
-			NULL)
+			NULL,
+			0)
 
 INSERT INTO [dbo].[Location]
            ([id]
@@ -66,20 +72,23 @@ INSERT INTO [dbo].[Location]
            ,[street]
            ,[city]
            ,[state]
-           ,[zip])
+           ,[zip]
+		   ,[softDelete])
      VALUES
            ('A7DB9085-966F-490B-989B-AB2B0CE834C3',
 		   '7AAF147D-5D19-423D-ABC8-C0E5906DB578',
 		   '5904 California Ave',
 		   'Nashville',
 		   'TN',
-		   '37209'),
+		   '37209',
+		   0),
 
 		   ('C800FE94-DD1F-4A15-A12A-D3A233914515',
 		   '8B864B59-FAD1-414C-8811-D8CD9FA795E7',
 		   '1566 W McEwen Dr',
 		   'Franklin',
 		   'TN',
-		   '37067')
+		   '37067',
+		   0)
 
 

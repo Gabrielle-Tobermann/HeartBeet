@@ -16,7 +16,8 @@ CREATE TABLE [dbo].[Donation](
 	[claimed] [bit] NOT NULL,
 	[received] [bit] NOT NULL,
 	[locationId] [uniqueidentifier] NOT NULL,
-	[deliveryLocationId] [uniqueidentifier] NULL
+	[deliveryLocationId] [uniqueidentifier] NULL,
+	[softDelete] [bit] NOT NULL default 0
 ) ON [PRIMARY]
 GO
 
@@ -45,7 +46,7 @@ ALTER TABLE [dbo].[Item] ADD  CONSTRAINT [DF_Item_id]  DEFAULT (newid()) FOR [id
 GO
 
 ALTER TABLE [dbo].[Item]  WITH CHECK ADD  CONSTRAINT [FK_Item_Donation] FOREIGN KEY([donationId])
-REFERENCES [dbo].[Donation] ([id])
+REFERENCES [dbo].[Donation] ([id]) on delete cascade
 GO
 
 ALTER TABLE [dbo].[Item] CHECK CONSTRAINT [FK_Item_Donation]
@@ -58,6 +59,7 @@ CREATE TABLE [dbo].[Location](
 	[city] [varchar](50) NOT NULL,
 	[state] [varchar](50) NOT NULL,
 	[zip] [varchar](50) NOT NULL,
+	[softDelete] [bit] NOT NULL default 0
  CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -81,6 +83,7 @@ CREATE TABLE [dbo].[User](
 	[name] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
 	[userType] [varchar](50) NOT NULL,
+	[softDelete] [bit] NOT NULL default 0
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
