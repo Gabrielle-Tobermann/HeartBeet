@@ -93,7 +93,6 @@ namespace HeartBeet.DataAccess
                           ,[received] = @received
                           ,[locationId] = @locationId
                           ,[deliveryLocationId] = @deliveryLocationId
-                          ,[softDelete] = @softDelete
                             output inserted.*
                          WHERE id = @id";
 
@@ -102,5 +101,16 @@ namespace HeartBeet.DataAccess
 
             return updateDonation;
         }
+
+        internal void DeleteDonation(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE FROM [dbo].[Donation]
+                        WHERE id = @id";
+
+            var delete = db.QuerySingleOrDefault<Donation>(sql, new { id });
+        }
+
     }
 }

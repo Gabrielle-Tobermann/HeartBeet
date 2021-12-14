@@ -15,7 +15,6 @@ namespace HeartBeet.Models
         public bool Received { get; set; }
         public Guid LocationId { get; set; }
         public Guid DeliveryLocationId { get; set; }
-        public bool SoftDelete { get; set; }
         public List<Item> Items { get; set; }
     }
 }
