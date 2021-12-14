@@ -80,5 +80,26 @@ namespace HeartBeet.DataAccess
 
 
         }
+
+        internal Donation UpdateDonation(Guid id, Donation donation)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Donation]
+                       SET [isDelivery] = @isDelivery
+                          ,[donorId] = @donorId
+                          ,[recipientId] = @recipientId
+                          ,[claimed] = @claimed
+                          ,[received] = @received
+                          ,[locationId] = @locationId
+                          ,[deliveryLocationId] = @deliveryLocationId
+                            output inserted.*
+                         WHERE id = @id";
+
+            id = donation.Id;
+            var updateDonation = db.QuerySingleOrDefault<Donation>(sql, donation);
+
+            return updateDonation;
+        }
     }
 }
