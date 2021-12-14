@@ -48,5 +48,23 @@ namespace HeartBeet.DataAccess
             var userId = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = userId;
         }
+
+        internal User UpdateUser(Guid id, User user)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[User]
+                       SET [uid] = @uid
+                          ,[name] = @name
+                          ,[email] = @email
+                          ,[userType] = @userType
+                        output inserted.*
+                     WHERE id = @id";
+
+            id = user.Id;
+            var updateUser = db.QuerySingleOrDefault<User>(sql, user);
+
+            return updateUser;
+        }
     }
 }
