@@ -72,5 +72,15 @@ namespace HeartBeet.DataAccess
 
             return updateItem;
         }
+
+        internal void DeleteItem(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"DELETE FROM [dbo].[Item]
+                        WHERE id = @id";
+
+            var delete = db.QuerySingleOrDefault<Item>(sql, new { id });
+        }
     }
 }

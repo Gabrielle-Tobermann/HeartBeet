@@ -48,5 +48,13 @@ namespace HeartBeet.Controllers
 
             return Ok(updateItem);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            _repo.DeleteItem(id);
+
+            return Ok();
+        }
     }
 }
