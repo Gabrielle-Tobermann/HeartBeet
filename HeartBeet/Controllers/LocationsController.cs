@@ -40,5 +40,13 @@ namespace HeartBeet.Controllers
 
             return Created($"api/users/{newLocation.Id}", newLocation);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(Guid id, Location location)
+        {
+            var updateLocation = _repo.UpdateLocation(id, location);
+
+            return Ok(updateLocation);
+        }
     }
 }

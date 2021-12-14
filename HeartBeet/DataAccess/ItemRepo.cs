@@ -64,6 +64,7 @@ namespace HeartBeet.DataAccess
                           ,[quantity] = @quantity
                           ,[datePrepared] = @datePrepared
                           ,[bestBy] = @bestBy
+                        output inserted.*
                      WHERE id = @id";
 
             id = item.Id;

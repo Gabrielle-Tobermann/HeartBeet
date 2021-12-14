@@ -66,5 +66,24 @@ namespace HeartBeet.DataAccess
             newLocation.Id = locationId;
 
         }
+
+        internal Location UpdateLocation(Guid id, Location location)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Location]
+                       SET [userId] = @userId
+                          ,[street] = @street
+                          ,[city] = @city
+                          ,[state] = @state
+                          ,[zip] = @zip
+                        output inserted.*
+                     WHERE id = @id";
+
+            id = location.Id;
+            var updateLocation = db.QuerySingleOrDefault<Location>(sql, location);
+
+            return updateLocation;
+        }
     }
 }
