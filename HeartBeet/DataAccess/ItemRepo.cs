@@ -53,5 +53,23 @@ namespace HeartBeet.DataAccess
             newItem.Id = itemId;
 
         }
+
+        internal Item UpdateItem(Guid id, Item item)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"UPDATE [dbo].[Item]
+                       SET [donationId] = @donationId
+                          ,[food] = @food
+                          ,[quantity] = @quantity
+                          ,[datePrepared] = @datePrepared
+                          ,[bestBy] = @bestBy
+                     WHERE id = @id";
+
+            id = item.Id;
+            var updateItem = db.QuerySingleOrDefault<Item>(sql, item);
+
+            return updateItem;
+        }
     }
 }

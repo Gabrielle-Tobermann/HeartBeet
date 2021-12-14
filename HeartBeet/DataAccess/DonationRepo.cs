@@ -67,7 +67,7 @@ namespace HeartBeet.DataAccess
                 var itemParams = new
                 {
                     Id = new Guid(),
-                    donationId = newDonation.Id,
+                    DonationId = newDonation.Id,
                     food = item.Food,
                     Quantity = item.Quantity,
                     DatePrepared = item.DatePrepared,

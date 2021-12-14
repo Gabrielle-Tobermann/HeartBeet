@@ -40,5 +40,13 @@ namespace HeartBeet.Controllers
 
             return Created($"api/users/{newItem.Id}", newItem);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(Guid id, Item item)
+        {
+           var updateItem =  _repo.UpdateItem(id, item);
+
+            return Ok(updateItem);
+        }
     }
 }
