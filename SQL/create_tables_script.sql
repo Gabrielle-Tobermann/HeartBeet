@@ -79,7 +79,7 @@ GO
 
 CREATE TABLE [dbo].[User](
 	[id] [uniqueidentifier] NOT NULL,
-	[uid] [uniqueidentifier] NULL,
+	[uid] [varchar](50) NULL,
 	[name] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
 	[userType] [varchar](50) NOT NULL,
