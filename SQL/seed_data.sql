@@ -1,21 +1,6 @@
 USE [HeartBeet]
 GO
 
-INSERT INTO [dbo].[Item]
-           ([id]
-           ,[donationId]
-           ,[food]
-           ,[quantity]
-           ,[datePrepared]
-           ,[bestBy])
-     VALUES
-           ('5098234C-358B-4500-AD56-EFE74EED687F',
-           '4BC01C12-22E1-41E1-9B2D-41A7EAF6105F',
-           'Green Beans',
-           10,
-           cast('2021-11-11' as date),
-		   cast('2021-12-11' as date))
-
 INSERT INTO [dbo].[Donation]
            ([id]
            ,[isDelivery]
@@ -34,6 +19,21 @@ INSERT INTO [dbo].[Donation]
            0,
 		   'C800FE94-DD1F-4A15-A12A-D3A233914515',
 		   NULL)
+
+INSERT INTO [dbo].[Item]
+([id]
+,[donationId]
+,[food]
+,[quantity]
+,[datePrepared]
+,[bestBy])
+VALUES
+('5098234C-358B-4500-AD56-EFE74EED687F',
+'4BC01C12-22E1-41E1-9B2D-41A7EAF6105F',
+'Green Beans',
+10,
+cast('2021-11-11' as date),
+cast('2021-12-11' as date))
 
 INSERT INTO [dbo].[User]
            ([id]
