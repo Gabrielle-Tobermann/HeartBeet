@@ -1,5 +1,6 @@
 ﻿using HeartBeet.DataAccess;
 using HeartBeet.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace HeartBeet.Controllers
 {
     [Route("api/donations")]
     [ApiController]
+    [AllowAnonymous]
     public class DonationsController : ControllerBase
     {
         DonationRepo _repo;
