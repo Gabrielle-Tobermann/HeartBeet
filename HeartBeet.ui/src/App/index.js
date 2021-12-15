@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import './App.scss';
-import { signInUser, signOutUser } from '../helpers/auth';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from '../helpers/Routes';
+import Navbar from './components/Navbar';
 
 function App() {
   const [user, setUser] = useState({});
@@ -21,8 +23,15 @@ function App() {
   }, []);
   return (
     <div className='App'>
-      <button onClick={signInUser}>Sign In</button>
-      <button onClick={signOutUser}>Sign Out</button>
+        <Router>
+        <div>
+          <Navbar/>
+        </div>
+      <div style={{ width: '80%' }}>
+          <Routes
+          user={user}/>
+      </div>
+      </Router>
     </div>
   );
 }

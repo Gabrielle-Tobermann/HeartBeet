@@ -17,7 +17,7 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any
 };
-function Routes() {
+function Routes({ user }) {
   return (
     <div>
       <Switch>
@@ -28,14 +28,20 @@ function Routes() {
         <PrivateRoute
         exact path='/profile'
         component={Profile}
+        user={user}
         />
         <PrivateRoute
         exact path='/feed'
         component={Feed}
+        user={user}
         />
       </Switch>
     </div>
   );
 }
+
+Routes.propTypes = {
+  user: PropTypes.any
+};
 
 export default Routes;
