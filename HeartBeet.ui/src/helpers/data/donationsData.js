@@ -14,4 +14,21 @@ const getDonations = () => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-export default getDonations;
+const getItems = (donationId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/items/${donationId}`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    }).catch((error) => reject(error));
+});
+
+const getUser = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/users/${userId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export { getDonations, getItems, getUser };

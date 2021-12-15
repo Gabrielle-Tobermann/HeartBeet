@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import getDonations from '../../helpers/data/donationsData';
+import { getDonations } from '../../helpers/data/donationsData';
+import DonationCard from './DonationCard';
 
 function Feed() {
   const [donations, setDonations] = useState([]);
+
   useEffect(() => {
     getDonations().then(setDonations);
   }, []);
@@ -10,7 +12,16 @@ function Feed() {
   console.warn(donations);
   return (
     <div>
-      Feed
+      {
+      donations?.map((donation, i) => (
+        <DonationCard
+        key={i}
+        isDelivery={donation.isDelivery}
+        donorId={donation.donorId}
+        donationId={donation.id}
+        />
+      ))
+      }
     </div>
   );
 }
