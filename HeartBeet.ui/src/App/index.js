@@ -1,36 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import './App.scss';
+import { signInUser, signOutUser } from '../helpers/auth';
 
 function App() {
-  const [domWriting, setDomWriting] = useState('Nothing Here!');
+  const [user, setUser] = useState({});
 
-  const handleClick = (e) => {
-    console.warn(`You clicked ${e.target.id}`);
-    setDomWriting(`You clicked ${e.target.id}! Check the Console!`);
-  };
+  console.warn(user);
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      if (userInfo) {
+        // eslint-disable-next-line no-undef
+        userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token));
+        setUser(userInfo);
+      } else {
+        setUser(false);
+      }
+    });
+  }, []);
   return (
     <div className='App'>
-      <h2>INSIDE APP COMPONENT</h2>
-      <div>
-        <button
-          id='this-button'
-          className='btn btn-info'
-          onClick={handleClick}
-        >
-          I am THIS button
-        </button>
-      </div>
-      <div>
-        <button
-          id='that-button'
-          className='btn btn-primary mt-3'
-          onClick={handleClick}
-        >
-          I am THAT button
-        </button>
-      </div>
-      <h3>{domWriting}</h3>
+      <button onClick={signInUser}>Sign In</button>
+      <button onClick={signOutUser}>Sign Out</button>
     </div>
   );
 }
