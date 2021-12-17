@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getDonations } from '../../helpers/data/donationsData';
+import DonationCard from './DonationCard';
 
-export default function Feed() {
+function Feed() {
+  const [donations, setDonations] = useState([]);
+
+  useEffect(() => {
+    getDonations().then(setDonations);
+  }, []);
+
+  console.warn(donations);
   return (
     <div>
-      Feed
+      {
+      donations?.map((donation, i) => (
+        <DonationCard
+        key={i}
+        isDelivery={donation.isDelivery}
+        donorId={donation.donorId}
+        donationId={donation.id}
+        datePosted={donation.datePosted}
+        />
+      ))
+      }
     </div>
   );
 }
+
+export default Feed;

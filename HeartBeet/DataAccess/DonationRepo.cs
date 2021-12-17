@@ -47,6 +47,7 @@ namespace HeartBeet.DataAccess
 
             var donationId = db.ExecuteScalar<Guid>(sql, newDonation);
             newDonation.Id = donationId;
+            newDonation.DatePosted = DateTime.Now;
 
             var itemsSql = @"INSERT INTO [dbo].[Item]
                                ([donationId]
@@ -93,6 +94,7 @@ namespace HeartBeet.DataAccess
                           ,[received] = @received
                           ,[locationId] = @locationId
                           ,[deliveryLocationId] = @deliveryLocationId
+                          ,[datePosted] = @datePosted
                             output inserted.*
                          WHERE id = @id";
 
