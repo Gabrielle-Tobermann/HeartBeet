@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
-  CardTitle,
   CardSubtitle,
   CardText,
 } from 'reactstrap';
 import { getItems, getUser } from '../../helpers/data/donationsData';
+import DonationModal from './DonationModal';
 
 function DonationCard({
   donationId,
   donorId,
   isDelivery,
-  datePosted
+  datePosted,
 }) {
   const [donor, setDonor] = useState({});
   const [items, setItems] = useState([]);
@@ -35,9 +35,10 @@ function DonationCard({
           ? <Card
         >
           <CardBody>
-            <CardTitle tag="h5">
-              { donor.name}
-            </CardTitle>
+            <DonationModal
+            name={donor.name}
+            items={items}
+            />
             <CardSubtitle
               className="mb-2 text-muted"
               tag="h6"
@@ -68,7 +69,7 @@ DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
   isDelivery: PropTypes.bool,
-  datePosted: PropTypes.string
+  datePosted: PropTypes.string,
 };
 
 export default DonationCard;
