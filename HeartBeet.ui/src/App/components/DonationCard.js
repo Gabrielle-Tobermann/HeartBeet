@@ -5,7 +5,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  CardText
+  CardText,
 } from 'reactstrap';
 import { getItems, getUser } from '../../helpers/data/donationsData';
 
@@ -13,6 +13,7 @@ function DonationCard({
   donationId,
   donorId,
   isDelivery,
+  datePosted
 }) {
   const [donor, setDonor] = useState({});
   const [items, setItems] = useState([]);
@@ -29,27 +30,36 @@ function DonationCard({
   console.warn('items', items);
   return (
     <div>
-    <Card
-    >
-      <CardBody>
-        <CardTitle tag="h5">
-          {
-            donor.name
-          }
-        </CardTitle>
-        <CardSubtitle
-          className="mb-2 text-muted"
-          tag="h6"
+      {
+        items.length > 0
+          ? <Card
         >
-           {
-            isDelivery ? 'Delivery' : 'Pickup'
-          }
-        </CardSubtitle>
-        <CardText>
-          Some quick example text to build on the card title and make up the bulk of content.
-        </CardText>
-      </CardBody>
-    </Card>
+          <CardBody>
+            <CardTitle tag="h5">
+              { donor.name}
+            </CardTitle>
+            <CardSubtitle
+              className="mb-2 text-muted"
+              tag="h6"
+            >
+               {
+                isDelivery ? 'Delivery' : 'Pickup'
+              }
+            </CardSubtitle>
+              {
+                items?.map((item, i) => (
+                  <CardText key={i}>
+                    {item.food}
+                </CardText>
+                ))
+              }
+              <div>
+                {datePosted}
+              </div>
+          </CardBody>
+        </Card>
+          : ''
+      }
   </div>
   );
 }
@@ -57,7 +67,8 @@ function DonationCard({
 DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
-  isDelivery: PropTypes.bool
+  isDelivery: PropTypes.bool,
+  datePosted: PropTypes.string
 };
 
 export default DonationCard;

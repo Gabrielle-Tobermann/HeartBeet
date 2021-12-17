@@ -17,7 +17,8 @@ CREATE TABLE [dbo].[Donation](
 	[received] [bit] NOT NULL,
 	[locationId] [uniqueidentifier] NOT NULL,
 	[deliveryLocationId] [uniqueidentifier] NULL,
-	[softDelete] [bit] NOT NULL default 0
+	[softDelete] [bit] NOT NULL default 0,
+	[datePosted] [datetime] NOT NULL
 ) ON [PRIMARY]
 GO
 

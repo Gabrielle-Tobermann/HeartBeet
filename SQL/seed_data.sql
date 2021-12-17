@@ -9,7 +9,8 @@ INSERT INTO [dbo].[Donation]
            ,[claimed]
            ,[received]
            ,[locationId]
-           ,[deliveryLocationId])
+           ,[deliveryLocationId]
+		   ,[datePosted])
      VALUES
            ('4BC01C12-22E1-41E1-9B2D-41A7EAF6105F',
            0,
@@ -18,7 +19,8 @@ INSERT INTO [dbo].[Donation]
            1,
            0,
 		   'C800FE94-DD1F-4A15-A12A-D3A233914515',
-		   NULL)
+		   NULL,
+		   cast('2021-12-16T14:56:59' as datetime))
 
 INSERT INTO [dbo].[Item]
 ([id]

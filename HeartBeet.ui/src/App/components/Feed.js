@@ -19,6 +19,7 @@ function Feed() {
         isDelivery={donation.isDelivery}
         donorId={donation.donorId}
         donationId={donation.id}
+        datePosted={donation.datePosted}
         />
       ))
       }
