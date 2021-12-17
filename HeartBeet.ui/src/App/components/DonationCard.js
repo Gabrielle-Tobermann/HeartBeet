@@ -5,6 +5,7 @@ import {
   CardBody,
   CardSubtitle,
   CardText,
+  Button
 } from 'reactstrap';
 import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
@@ -15,7 +16,8 @@ function DonationCard({
   donorId,
   isDelivery,
   datePosted,
-  claimed
+  claimed,
+  userId
 }) {
   const [donor, setDonor] = useState({});
   const [items, setItems] = useState([]);
@@ -62,6 +64,11 @@ function DonationCard({
                 {datePosted}
               </div>
           </CardBody>
+          {
+            userId === donorId
+              ? <Button>Delete</Button>
+              : ''
+          }
         </Card>
           : ''
       }
@@ -75,6 +82,7 @@ DonationCard.propTypes = {
   isDelivery: PropTypes.bool,
   claimed: PropTypes.bool,
   datePosted: PropTypes.string,
+  userId: PropTypes.string
 };
 
 export default DonationCard;

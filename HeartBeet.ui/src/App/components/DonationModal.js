@@ -77,7 +77,7 @@ function DonationModal({
       </Button>
       {' '}
       <Button onClick={function noRefCheck() {}}>
-        Cancel
+        Mark as Recevied
       </Button>
     </ModalFooter>
   </Modal>
