@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalHeader,
@@ -7,15 +7,23 @@ import {
   Button
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { getSingleDonation } from '../../helpers/data/donationsData';
 
 function DonationModal({
   name,
   items,
-  claimed,
+  donationId,
 }) {
   const [modal, setModal] = useState(false);
-
+  const [donation, setDonation] = useState({});
   const toggle = () => setModal(!modal);
+
+  useEffect(() => {
+    getSingleDonation(donationId).then((response) => {
+      console.warn(response);
+      setDonation(response);
+    });
+  }, []);
 
   return (
     <div>
@@ -48,7 +56,7 @@ function DonationModal({
               {item.bestBy}
             </div>
             <div>
-              {claimed ? 'Claimed' : 'Unclaimed'}
+              {donation.claimed ? 'Claimed' : 'Unclaimed'}
             </div>
             </div>
         ))
@@ -74,7 +82,7 @@ function DonationModal({
 DonationModal.propTypes = {
   name: PropTypes.string,
   items: PropTypes.array,
-  claimed: PropTypes.bool
+  donationId: PropTypes.string
 };
 
 export default DonationModal;

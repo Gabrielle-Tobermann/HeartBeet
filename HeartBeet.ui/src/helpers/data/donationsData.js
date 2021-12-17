@@ -25,10 +25,21 @@ const getItems = (donationId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-const getUser = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/users/${userId}`)
-    .then((response) => resolve(response.data))
+const getSingleDonation = (donationId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/donations/${donationId}`)
+    .then((resp) => resolve(resp))
     .catch((error) => reject(error));
 });
 
-export { getDonations, getItems, getUser };
+const claimDonation = (donationId) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/donations/claim/${donationId}`)
+    .then((resp) => resolve(resp))
+    .catch((error) => reject(error));
+});
+
+export {
+  getDonations,
+  getItems,
+  claimDonation,
+  getSingleDonation
+};

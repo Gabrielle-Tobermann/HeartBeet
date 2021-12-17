@@ -6,8 +6,9 @@ import {
   CardSubtitle,
   CardText,
 } from 'reactstrap';
-import { getItems, getUser } from '../../helpers/data/donationsData';
+import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
+import getUser from '../../helpers/data/userData';
 
 function DonationCard({
   donationId,
@@ -40,6 +41,7 @@ function DonationCard({
             name={donor.name}
             items={items}
             claimed={claimed}
+            donationId={donationId}
             />
             <CardSubtitle
               className="mb-2 text-muted"

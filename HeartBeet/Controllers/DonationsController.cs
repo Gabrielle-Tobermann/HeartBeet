@@ -30,6 +30,13 @@ namespace HeartBeet.Controllers
             return Ok(donations);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
+        {
+            var donation = _repo.GetDonationById(id);
+            return Ok(donation);
+        }
+
         [HttpPost]
         public IActionResult AddDonation(CreateDonationCommand command)
         {
