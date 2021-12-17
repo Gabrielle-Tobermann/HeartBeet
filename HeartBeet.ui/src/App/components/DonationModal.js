@@ -7,7 +7,7 @@ import {
   Button
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { getSingleDonation } from '../../helpers/data/donationsData';
+import { claimDonation, getSingleDonation } from '../../helpers/data/donationsData';
 
 function DonationModal({
   name,
@@ -20,10 +20,16 @@ function DonationModal({
 
   useEffect(() => {
     getSingleDonation(donationId).then((response) => {
-      console.warn(response);
       setDonation(response);
     });
   }, []);
+
+  const claim = () => {
+    claimDonation(donationId).then((resp) => {
+      console.warn(resp);
+      setDonation(resp);
+    });
+  };
 
   return (
     <div>
@@ -65,9 +71,9 @@ function DonationModal({
     <ModalFooter>
       <Button
         color="primary"
-        onClick={function noRefCheck() {}}
+        onClick={claim}
       >
-        Do Something
+        Claim Donation
       </Button>
       {' '}
       <Button onClick={function noRefCheck() {}}>

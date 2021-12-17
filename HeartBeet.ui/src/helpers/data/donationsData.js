@@ -27,13 +27,13 @@ const getItems = (donationId) => new Promise((resolve, reject) => {
 
 const getSingleDonation = (donationId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/donations/${donationId}`)
-    .then((resp) => resolve(resp))
+    .then((resp) => resolve(resp.data))
     .catch((error) => reject(error));
 });
 
 const claimDonation = (donationId) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/donations/claim/${donationId}`)
-    .then((resp) => resolve(resp))
+    .then((resp) => resolve(resp.data))
     .catch((error) => reject(error));
 });
 
