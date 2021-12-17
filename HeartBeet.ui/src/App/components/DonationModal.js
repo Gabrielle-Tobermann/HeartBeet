@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 function DonationModal({
   name,
   items,
+  claimed,
 }) {
   const [modal, setModal] = useState(false);
 
@@ -46,6 +47,9 @@ function DonationModal({
             <div>
               {item.bestBy}
             </div>
+            <div>
+              {claimed ? 'Claimed' : 'Unclaimed'}
+            </div>
             </div>
         ))
       }
@@ -69,7 +73,8 @@ function DonationModal({
 
 DonationModal.propTypes = {
   name: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  claimed: PropTypes.bool
 };
 
 export default DonationModal;

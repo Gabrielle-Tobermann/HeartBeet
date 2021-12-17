@@ -14,6 +14,7 @@ function DonationCard({
   donorId,
   isDelivery,
   datePosted,
+  claimed
 }) {
   const [donor, setDonor] = useState({});
   const [items, setItems] = useState([]);
@@ -38,6 +39,7 @@ function DonationCard({
             <DonationModal
             name={donor.name}
             items={items}
+            claimed={claimed}
             />
             <CardSubtitle
               className="mb-2 text-muted"
@@ -69,6 +71,7 @@ DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
   isDelivery: PropTypes.bool,
+  claimed: PropTypes.bool,
   datePosted: PropTypes.string,
 };
 

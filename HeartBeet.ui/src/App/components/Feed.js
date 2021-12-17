@@ -20,6 +20,7 @@ function Feed() {
         donorId={donation.donorId}
         donationId={donation.id}
         datePosted={donation.datePosted}
+        claimed={donation.claimed}
         />
       ))
       }
