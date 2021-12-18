@@ -17,13 +17,17 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any
 };
-function Routes({ user }) {
+function Routes({ user, setUser }) {
   return (
     <div>
       <Switch>
         <Route
         exact path='/'
-        component={Home}
+        component={() => <Home
+          user={user}
+          setUser={setUser}
+          />
+        }
         />
         <PrivateRoute
         exact path='/profile'
@@ -41,7 +45,8 @@ function Routes({ user }) {
 }
 
 Routes.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  setUser: PropTypes.func
 };
 
 export default Routes;

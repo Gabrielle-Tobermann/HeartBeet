@@ -15,4 +15,10 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getUser, getUserByUid };
+const createUser = (user) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/users/`, user)
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
+export { getUser, getUserByUid, createUser };
