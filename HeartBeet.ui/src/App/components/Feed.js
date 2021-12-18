@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { getDonations } from '../../helpers/data/donationsData';
 import DonationCard from './DonationCard';
 
-function Feed() {
+function Feed({ user }) {
   const [donations, setDonations] = useState([]);
 
   useEffect(() => {
     getDonations().then(setDonations);
   }, []);
 
-  console.warn(donations);
+  console.warn(user);
   return (
     <div>
       {
@@ -20,11 +21,17 @@ function Feed() {
         donorId={donation.donorId}
         donationId={donation.id}
         datePosted={donation.datePosted}
+        claimed={donation.claimed}
+        userId={user.id}
         />
       ))
       }
     </div>
   );
 }
+
+Feed.propTypes = {
+  user: PropTypes.any
+};
 
 export default Feed;
