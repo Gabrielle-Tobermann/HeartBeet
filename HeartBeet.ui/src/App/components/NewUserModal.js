@@ -62,7 +62,6 @@ function NewUserModal({ user, setUser }) {
             name="name"
             placeholder="Name"
             onChange={handleInputChange}
-            value={newUser.name}
           />
         </FormGroup>
             <FormGroup>
@@ -75,7 +74,6 @@ function NewUserModal({ user, setUser }) {
             id="exampleSelect"
             name="userType"
             type="select"
-            value={newUser.userType}
             onChange={handleInputChange}
           >
             <option value=''></option>
