@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
-import getUser from '../../helpers/data/userData';
+import { getUser } from '../../helpers/data/userData';
 
 function DonationCard({
   donationId,
