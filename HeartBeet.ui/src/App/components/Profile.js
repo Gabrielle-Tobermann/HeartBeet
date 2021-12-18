@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import { getUserLocations } from '../../helpers/data/LocationData';
 import LocationTable from './LocationTable';
+import AddLocationModal from './AddLocationModal';
 
 function Profile({ user }) {
   const [userLocations, setUserLocations] = useState([]);
@@ -13,14 +13,13 @@ function Profile({ user }) {
     }
   }, []);
 
-  // const handleAdd = () => {
-  //   addLocation()
-  // }
-
   return (
     <div>
       <div>{user.name}</div>
-      <Button>Add a location</Button>
+      <AddLocationModal
+      user={user}
+      setUserLocations={setUserLocations}
+      />
       <LocationTable
       locations={userLocations}
       />

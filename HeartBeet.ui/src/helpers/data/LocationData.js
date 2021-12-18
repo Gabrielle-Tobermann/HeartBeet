@@ -7,7 +7,7 @@ const getUserLocations = (userId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/locations/user/${userId}`)
     .then((resp) => {
       if (resp.data) {
-        resolve(resp.data);
+        resolve(Object.values(resp.data));
       } else {
         resolve([]);
       }
@@ -17,7 +17,7 @@ const getUserLocations = (userId) => new Promise((resolve, reject) => {
 const addLocation = (userId, location) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/locations`, location)
     .then(() => {
-      getUserLocations(userId).then((resp) => resolve(resp.data));
+      getUserLocations(userId).then((resp) => resolve(resp));
     })
     .catch((error) => reject(error));
 });
