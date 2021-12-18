@@ -23,15 +23,12 @@ function App() {
               setUser(userInfo);
             }
           }));
-
-        console.warn(user);
       } else {
         setUser(false);
       }
     });
   }, []);
 
-  console.warn('user', user);
   return (
     <div className='App'>
         <Router>

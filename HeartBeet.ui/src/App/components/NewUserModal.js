@@ -26,7 +26,7 @@ function NewUserModal({ user, setUser }) {
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    if (user && user.id === null) {
+    if (user && !user.id) {
       setIsOpen(true);
     }
   }, []);
@@ -38,7 +38,7 @@ function NewUserModal({ user, setUser }) {
   const handleInputChange = (e) => {
     setNewUser((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.name === 'userType' ? e.target.checked : e.target.value
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -46,17 +46,12 @@ function NewUserModal({ user, setUser }) {
     <div>
     <Modal
       toggle={toggle}
+      isOpen={isOpen}
     >
       <ModalHeader toggle={toggle}>
         Welcome! Please enter your user information.
       </ModalHeader>
       <ModalBody>
-            <FormGroup>
-        <Label
-          for="exampleSelect"
-        >
-          What will you use HeartBeet for?
-        </Label>
         <FormGroup>
           <Label for="userName">
             Enter your name or the name of your company
@@ -67,14 +62,23 @@ function NewUserModal({ user, setUser }) {
             name="name"
             placeholder="Name"
             onChange={handleInputChange}
+            value={newUser.name}
           />
         </FormGroup>
+            <FormGroup>
+        <Label
+          for="exampleSelect"
+        >
+          What will you use HeartBeet for?
+        </Label>
           <Input
             id="exampleSelect"
             name="userType"
             type="select"
+            value={newUser.userType}
             onChange={handleInputChange}
           >
+            <option value=''></option>
             <option>
               Donor
             </option>
