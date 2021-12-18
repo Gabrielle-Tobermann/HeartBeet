@@ -33,6 +33,19 @@ namespace HeartBeet.Controllers
             return Ok(location);
         }
 
+        [HttpGet("user/{id}")]
+        public IActionResult GetUserLocation(Guid id)
+        {
+            var location = _repo.GetUserLocation(id);
+
+            if (location == null)
+            {
+                NotFound("Location not found.");
+            }
+
+            return Ok(location);
+        }
+
         [HttpPost]
         public IActionResult Add(Location newLocation)
         {

@@ -31,7 +31,9 @@ function Routes({ user, setUser }) {
         />
         <PrivateRoute
         exact path='/profile'
-        component={Profile}
+        component={() => <Profile
+        user={user}
+        />}
         user={user}
         />
         <PrivateRoute
