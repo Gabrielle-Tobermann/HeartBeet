@@ -31,17 +31,32 @@ namespace HeartBeet.DataAccess
             return user;
         }
 
+        internal User GetUserByUid(string id)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select *
+                        from [User]
+                        where uid = @id";
+
+            var user = db.QueryFirstOrDefault<User>(sql, new { id });
+
+            return user;
+        }
+
         internal void AddUser(User newUser)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"INSERT INTO [dbo].[User]
                        ([name]
+                       ,[uid]
                        ,[email]
                        ,[userType])
                         Output inserted.Id
                         VALUES
                             (@name
+                            ,@uid
                             ,@email
                             ,@userType)";
 

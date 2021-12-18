@@ -33,6 +33,19 @@ namespace HeartBeet.Controllers
             return Ok(user);
         }
 
+        [HttpGet("uid/{id}")]
+        public IActionResult GetUserByUid(string id)
+        {
+            var user = _repo.GetUserByUid(id);
+
+            if (user == null)
+            {
+                NotFound("User not found.");
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost]
         public IActionResult Add(User newUser)
         {
