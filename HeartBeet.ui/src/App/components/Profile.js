@@ -22,6 +22,8 @@ function Profile({ user }) {
       />
       <LocationTable
       locations={userLocations}
+      userId={user.id}
+      setUserLocations={setUserLocations}
       />
     </div>
   );

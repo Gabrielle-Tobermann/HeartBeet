@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Table } from 'reactstrap';
+import { deleteLocation } from '../../helpers/data/LocationData';
 
-function LocationTable({ locations }) {
+function LocationTable({ locations, userId, setUserLocations }) {
+  const handleDelete = (locationId) => {
+    deleteLocation(locationId, userId).then(setUserLocations);
+  };
   return (
     <div>
         <Table>
@@ -19,14 +23,17 @@ function LocationTable({ locations }) {
         <tbody>
           {
             locations.map((location, i) => (
-              <tr key={i}>
-              <th scope="row">{i + 1}</th>
-              <td>{location.street}</td>
-              <td>{location.city}</td>
-              <td>{location.state}</td>
-              <td>{location.zip}</td>
-              <td><i className="fas fa-pen"></i></td>
-            </tr>
+              location.softDelete
+                ? null
+                : <tr key={i}>
+                <th scope="row">{i + 1}</th>
+                <td>{location.street}</td>
+                <td>{location.city}</td>
+                <td>{location.state}</td>
+                <td>{location.zip}</td>
+                <td><i className="fas fa-pen"></i></td>
+                <td onClick={() => handleDelete(location.id)}><i className="far fa-trash-alt"></i></td>
+              </tr>
             ))
           }
         </tbody>
@@ -36,7 +43,9 @@ function LocationTable({ locations }) {
 }
 
 LocationTable.propTypes = {
-  locations: PropTypes.array
+  locations: PropTypes.array,
+  userId: PropTypes.string,
+  setUserLocations: PropTypes.func
 };
 
 export default LocationTable;

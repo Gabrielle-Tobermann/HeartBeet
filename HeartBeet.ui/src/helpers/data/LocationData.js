@@ -22,4 +22,23 @@ const addLocation = (userId, location) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getUserLocations, addLocation };
+const deleteLocation = (locationId, userId) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/locations/delete/${locationId}`)
+    .then(() => {
+      getUserLocations(userId).then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+const updateLocation = (userId, locationId, locationObj) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/locations/${locationId}`, locationObj)
+    .then(() => {
+      getUserLocations(userId).then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+export {
+  getUserLocations,
+  addLocation,
+  deleteLocation,
+  updateLocation
+};
