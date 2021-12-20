@@ -36,9 +36,16 @@ const updateLocation = (userId, locationId, locationObj) => new Promise((resolve
     }).catch((error) => reject(error));
 });
 
+const getSingleLocation = (locationId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/locations/${locationId}`)
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
 export {
   getUserLocations,
   addLocation,
   deleteLocation,
-  updateLocation
+  updateLocation,
+  getSingleLocation
 };
