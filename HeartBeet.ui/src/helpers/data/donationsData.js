@@ -37,9 +37,33 @@ const claimDonation = (donationId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const addDonation = (donation) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/donations`, donation)
+    .then(() => {
+      getDonations().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+const updateDonation = (donationId, donation) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/donations/${donationId}`, donation)
+    .then(() => {
+      getDonations().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
+const deleteDonation = (donationId) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/donations/${donationId}`)
+    .then(() => {
+      getDonations().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
 export {
   getDonations,
   getItems,
   claimDonation,
-  getSingleDonation
+  getSingleDonation,
+  addDonation,
+  updateDonation,
+  deleteDonation
 };

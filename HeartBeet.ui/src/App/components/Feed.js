@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
 import { getDonations } from '../../helpers/data/donationsData';
 import DonationCard from './DonationCard';
 
@@ -12,6 +13,7 @@ function Feed({ user }) {
 
   return (
     <div>
+      <Button onClick={handleAdd}>+</Button>
       {
       donations?.map((donation, i) => (
         <DonationCard
