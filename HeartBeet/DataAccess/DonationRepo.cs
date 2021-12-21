@@ -24,7 +24,16 @@ namespace HeartBeet.DataAccess
 
             var sql = @"select * from Donation";
 
+            var itemsSql = @"select * from item
+                             where donationId = @donationId";
+
             var donations = db.Query<Donation>(sql);
+
+            foreach (var donation in donations)
+            {
+                var items = db.Query<Item>(itemsSql, new { donationId = donation.Id });
+                donation.Items = items;
+            }
 
             return donations;
         }

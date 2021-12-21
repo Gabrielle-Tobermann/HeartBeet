@@ -7,7 +7,7 @@ import {
   CardText,
   Button
 } from 'reactstrap';
-import { getItems } from '../../helpers/data/donationsData';
+// import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
 
@@ -17,18 +17,19 @@ function DonationCard({
   isDelivery,
   datePosted,
   claimed,
-  userId
+  userId,
+  items
 }) {
   const [donor, setDonor] = useState({});
-  const [items, setItems] = useState([]);
+  // const [donationItems, setDonationItems] = useState([]);
 
   useEffect(() => {
     getUser(donorId).then(setDonor);
   }, []);
 
-  useEffect(() => {
-    getItems(donationId).then(setItems);
-  }, []);
+  // useEffect(() => {
+  //   getItems(donationId).then(setDonationItems);
+  // }, []);
   return (
     <div>
       {
@@ -79,7 +80,8 @@ DonationCard.propTypes = {
   isDelivery: PropTypes.bool,
   claimed: PropTypes.bool,
   datePosted: PropTypes.string,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  items: PropTypes.array
 };
 
 export default DonationCard;

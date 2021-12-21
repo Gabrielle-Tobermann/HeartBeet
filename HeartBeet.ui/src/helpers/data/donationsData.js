@@ -27,7 +27,7 @@ const getItems = (donationId) => new Promise((resolve, reject) => {
 
 const addItem = (item) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/items`, item)
-    .then((resp) => resolve(resp.data))
+    .then(() => getDonations().then((resp) => resolve(resp)))
     .catch((error) => reject(error));
 });
 

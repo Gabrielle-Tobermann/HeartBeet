@@ -27,6 +27,7 @@ function Feed({ user }) {
         datePosted={donation.datePosted}
         claimed={donation.claimed}
         userId={user.id}
+        items={donation.items}
         />
       ))
       }

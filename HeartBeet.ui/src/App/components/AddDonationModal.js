@@ -81,9 +81,9 @@ function AddDonationModal({ userId, setDonations }) {
   };
 
   const handleSubmit = () => {
-    addDonation(newDonation).then((resp) => setDonations(resp));
+    addDonation(newDonation);
     itemInputs.forEach((item) => {
-      addItem(item);
+      addItem(item).then(setDonations);
     });
     setNewDonation({
       id: uuidv4(),
@@ -140,7 +140,7 @@ function AddDonationModal({ userId, setDonations }) {
           onChange={handleLocationChange}
           value={donLocation.street}
         >
-          <option></option>
+          <option>Select a location</option>
           {
             userLocations?.map((loc, i) => (
               <option key={i}>{loc.street}</option>
@@ -210,7 +210,8 @@ function AddDonationModal({ userId, setDonations }) {
 
 AddDonationModal.propTypes = {
   userId: PropTypes.string,
-  setDonations: PropTypes.func
+  setDonations: PropTypes.func,
+  setDonationItems: PropTypes.func
 };
 
 export default AddDonationModal;
