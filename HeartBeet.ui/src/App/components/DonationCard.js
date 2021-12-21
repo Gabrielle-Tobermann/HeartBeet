@@ -29,9 +29,6 @@ function DonationCard({
   useEffect(() => {
     getItems(donationId).then(setItems);
   }, []);
-
-  console.warn('donor', donor);
-  console.warn('items', items);
   return (
     <div>
       {

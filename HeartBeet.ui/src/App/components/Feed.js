@@ -10,7 +10,6 @@ function Feed({ user }) {
     getDonations().then(setDonations);
   }, []);
 
-  console.warn(user);
   return (
     <div>
       {
