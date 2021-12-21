@@ -14,7 +14,7 @@ function Feed({ user }) {
   return (
     <div>
       <AddDonationModal
-        user={user}
+        userId={user.id}
         setDonations={setDonations}
         />
       {

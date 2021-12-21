@@ -14,12 +14,12 @@ import {
 import { addDonation, addItem } from '../../helpers/data/donationsData';
 import { getUserLocations } from '../../helpers/data/LocationData';
 
-function AddDonationModal({ user, setDonations }) {
+function AddDonationModal({ userId, setDonations }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [userLocations, setUserLocations] = useState(false);
+  const [userLocations, setUserLocations] = useState([]);
   const [newDonation, setNewDonation] = useState({
     isDelivery: false,
-    donorId: '' || user.id,
+    donorId: userId,
     locationId: '',
     deliveryLocationId: '',
   });
@@ -27,7 +27,7 @@ function AddDonationModal({ user, setDonations }) {
   const [itemInputs, setItemInputs] = useState([
     {
       id: uuidv4(),
-      donationId: '' || newDonation.id,
+      donationId: newDonation.id,
       food: '',
       quantity: '',
       datePrepared: '',
@@ -35,14 +35,16 @@ function AddDonationModal({ user, setDonations }) {
     }]);
 
   useEffect(() => {
-    getUserLocations(user.id).then(setUserLocations);
+    getUserLocations(userId).then((resp) => {
+      setUserLocations(resp);
+    });
   }, []);
 
   const addNewField = () => {
     setItemInputs([...itemInputs,
       {
         id: uuidv4(),
-        donationId: '' || newDonation.id,
+        donationId: newDonation.id,
         food: '',
         quantity: '',
         datePrepared: '',
@@ -61,15 +63,18 @@ function AddDonationModal({ user, setDonations }) {
   const handleInputChange = (e) => {
     setNewDonation((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.type === 'check' ? e.target.checked : e.target.value
+      [e.target.name]: e.target.name === 'isDelivery' ? e.target.checked : e.target.value
     }));
+    console.warn(newDonation);
   };
 
   const handleSubmit = () => {
-    addDonation(user.id, newDonation).then(setDonations);
-    itemInputs.forEach((item) => {
-      addItem(item).then((resp) => console.warn(resp));
-    });
+    addDonation(newDonation).then(setDonations)
+      .then(() => {
+        itemInputs.forEach((item) => {
+          addItem(item).then((resp) => console.warn(resp));
+        });
+      });
     setIsOpen(!isOpen);
   };
 
@@ -99,6 +104,7 @@ function AddDonationModal({ user, setDonations }) {
         <Input
         type="checkbox"
         name="isDelivery"
+        value={newDonation.isDelivery}
         onChange={handleInputChange}
         />
         <Label check>
@@ -116,7 +122,7 @@ function AddDonationModal({ user, setDonations }) {
           onChange={handleInputChange}
         >
           {
-            userLocations.map((loc, i) => (
+            userLocations?.map((loc, i) => (
               <option key={i}>{loc.street}, {loc.city}</option>
             ))
           }
@@ -153,15 +159,6 @@ function AddDonationModal({ user, setDonations }) {
                 onChange={(e) => handleItemInputChange(item.id, e)}
                 />
                 </FormGroup>
-                <FormGroup>
-                    <Label for="item">When was it prepared?</Label>
-                    <Input type="date"
-                    name="datePrepared"
-                    id={item.id}
-                    value={item.datePrepared}
-                    onChange={(e) => handleItemInputChange(item.id, e)}
-                    />
-                </FormGroup>
                  <FormGroup>
                     <Label for="item">Best by?</Label>
                     <Input type="date"
@@ -192,7 +189,7 @@ function AddDonationModal({ user, setDonations }) {
 }
 
 AddDonationModal.propTypes = {
-  user: PropTypes.any,
+  userId: PropTypes.string,
   setDonations: PropTypes.func
 };
 

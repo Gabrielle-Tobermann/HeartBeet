@@ -29,7 +29,7 @@ namespace HeartBeet.DataAccess
             return donations;
         }
 
-        internal void AddDonation(Donation newDonation, List<DonationFood> items)
+        internal void AddDonation(Donation newDonation)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -49,35 +49,35 @@ namespace HeartBeet.DataAccess
             newDonation.Id = donationId;
             newDonation.DatePosted = DateTime.Now;
 
-            var itemsSql = @"INSERT INTO [dbo].[Item]
-                               ([donationId]
-                               ,[food]
-                               ,[quantity]
-                               ,[datePrepared]
-                               ,[bestBy])
-                                Output inserted.Id
-                             VALUES
-                                   (@donationId
-                                   ,@food
-                                   ,@quantity
-                                   ,@datePrepared
-                                   ,@bestBy)";
+            //var itemsSql = @"INSERT INTO [dbo].[Item]
+            //                   ([donationId]
+            //                   ,[food]
+            //                   ,[quantity]
+            //                   ,[datePrepared]
+            //                   ,[bestBy])
+            //                    Output inserted.Id
+            //                 VALUES
+            //                       (@donationId
+            //                       ,@food
+            //                       ,@quantity
+            //                       ,@datePrepared
+            //                       ,@bestBy)";
 
-            foreach (var item in items)
-            {
-                var itemParams = new
-                {
-                    Id = new Guid(),
-                    DonationId = newDonation.Id,
-                    food = item.Food,
-                    Quantity = item.Quantity,
-                    DatePrepared = item.DatePrepared,
-                    BestBy = item.BestBy
-                };
+            //foreach (var item in items)
+            //{
+            //    var itemParams = new
+            //    {
+            //        Id = new Guid(),
+            //        DonationId = newDonation.Id,
+            //        food = item.Food,
+            //        Quantity = item.Quantity,
+            //        DatePrepared = item.DatePrepared,
+            //        BestBy = item.BestBy
+            //    };
 
-                var itemId = db.ExecuteScalar<Guid>(itemsSql, itemParams);
-                item.Id = itemId;
-            }
+            //    var itemId = db.ExecuteScalar<Guid>(itemsSql, itemParams);
+            //    item.Id = itemId;
+            //}
 
 
         }

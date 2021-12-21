@@ -38,14 +38,11 @@ namespace HeartBeet.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDonation(CreateDonationCommand command)
+        public IActionResult AddDonation(Donation donation)
         {
-            var _donation = command.Donation;
-            var _food = command.Food;
+            _repo.AddDonation(donation);
 
-            _repo.AddDonation(_donation, _food);
-
-            return Created($"api/donations/{_donation.Id}", _donation);
+            return Created($"api/donations/{donation.Id}", donation);
         }
 
         [HttpPut("{id}")]
