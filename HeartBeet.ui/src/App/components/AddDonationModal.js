@@ -18,11 +18,15 @@ function AddDonationModal({ userId, setDonations }) {
   const [isOpen, setIsOpen] = useState(false);
   const [userLocations, setUserLocations] = useState([]);
   const [newDonation, setNewDonation] = useState({
+    id: uuidv4(),
     isDelivery: false,
     donorId: userId,
     locationId: '',
-    deliveryLocationId: '',
+    claimed: false,
+    received: false
   });
+
+  const [donLocation, setDonLocation] = useState({});
 
   const [itemInputs, setItemInputs] = useState([
     {
@@ -63,12 +67,21 @@ function AddDonationModal({ userId, setDonations }) {
   const handleInputChange = (e) => {
     setNewDonation((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.name === 'isDelivery' ? e.target.checked : e.target.value
+      [e.target.name]: e.target.checked
     }));
-    console.warn(newDonation);
+  };
+
+  const handleLocationChange = (e) => {
+    const location = userLocations.find((loc) => loc.street === e.target.value);
+    setDonLocation(location);
+    setNewDonation((prevState) => ({
+      ...prevState,
+      locationId: location.id
+    }));
   };
 
   const handleSubmit = () => {
+    console.warn(newDonation);
     addDonation(newDonation).then(setDonations)
       .then(() => {
         itemInputs.forEach((item) => {
@@ -119,11 +132,13 @@ function AddDonationModal({ userId, setDonations }) {
           id="exampleSelect"
           name="locationId"
           type="select"
-          onChange={handleInputChange}
+          onChange={handleLocationChange}
+          value={donLocation.street}
         >
+          <option></option>
           {
             userLocations?.map((loc, i) => (
-              <option key={i}>{loc.street}, {loc.city}</option>
+              <option key={i}>{loc.street}</option>
             ))
           }
         </Input>
