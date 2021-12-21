@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -10,17 +11,12 @@ import {
   ModalFooter,
   ModalHeader
 } from 'reactstrap';
-import { addDonation } from '../../helpers/data/donationsData';
+import { addDonation, addItem } from '../../helpers/data/donationsData';
 import { getUserLocations } from '../../helpers/data/LocationData';
 
 function AddDonationModal({ user, setDonations }) {
   const [isOpen, setIsOpen] = useState(false);
   const [userLocations, setUserLocations] = useState(false);
-
-  const [itemInputs, setItemInputs] = useState([{
-    itemID: '', id: uuidv4()
-  }]);
-
   const [newDonation, setNewDonation] = useState({
     isDelivery: false,
     donorId: '' || user.id,
@@ -28,19 +24,37 @@ function AddDonationModal({ user, setDonations }) {
     deliveryLocationId: '',
   });
 
-  const [items, setItems] = useState([
+  const [itemInputs, setItemInputs] = useState([
     {
+      id: uuidv4(),
       donationId: '' || newDonation.id,
       food: '',
       quantity: '',
       datePrepared: '',
       bestBy: ''
-    }
-  ]);
+    }]);
 
   useEffect(() => {
     getUserLocations(user.id).then(setUserLocations);
   }, []);
+
+  const addNewField = () => {
+    setItemInputs([...itemInputs,
+      {
+        id: uuidv4(),
+        donationId: '' || newDonation.id,
+        food: '',
+        quantity: '',
+        datePrepared: '',
+        bestBy: ''
+      }]);
+  };
+
+  const removeField = (id) => {
+    const inputs = [...itemInputs];
+    inputs.splice(inputs.findIndex((element) => element.id === id));
+    setItemInputs(inputs);
+  };
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -53,8 +67,23 @@ function AddDonationModal({ user, setDonations }) {
 
   const handleSubmit = () => {
     addDonation(user.id, newDonation).then(setDonations);
+    itemInputs.forEach((item) => {
+      addItem(item).then((resp) => console.warn(resp));
+    });
     setIsOpen(!isOpen);
   };
+
+  const handleItemInputChange = (id, e) => {
+    const newInputs = itemInputs.map((element) => {
+      if (id === element.id) {
+        const el = element;
+        el[e.target.name] = e.target.value;
+      }
+      return element;
+    });
+    setItemInputs(newInputs);
+  };
+
   return (
     <div>
          <Button onClick={toggle}>Add a donation</Button>
@@ -93,6 +122,61 @@ function AddDonationModal({ user, setDonations }) {
           }
         </Input>
         </FormGroup>
+        <div>
+        {
+          itemInputs.map((item) => (
+            <div key={item.id}>
+              <FormGroup>
+                <Label for="item">What food are you donating?</Label>
+                <Input type="text"
+                name="food"
+                id={item.id}
+                value={item.food}
+                onChange={(e) => handleItemInputChange(item.id, e)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="item">Quantity</Label>
+                <Input type="text"
+                name="quantity"
+                id={item.id}
+                value={item.quantity}
+                onChange={(e) => handleItemInputChange(item.id, e)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="item">When was it prepared?</Label>
+                <Input type="date"
+                name="datePrepared"
+                id={item.id}
+                value={item.datePrepared}
+                onChange={(e) => handleItemInputChange(item.id, e)}
+                />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="item">When was it prepared?</Label>
+                    <Input type="date"
+                    name="datePrepared"
+                    id={item.id}
+                    value={item.datePrepared}
+                    onChange={(e) => handleItemInputChange(item.id, e)}
+                    />
+                </FormGroup>
+                 <FormGroup>
+                    <Label for="item">Best by?</Label>
+                    <Input type="date"
+                    name="bestBy"
+                    id={item.id}
+                    value={item.bestBy}
+                    onChange={(e) => handleItemInputChange(item.id, e)}
+                    />
+              </FormGroup>
+              <Button onClick={addNewField}>+</Button>
+              <Button onClick={removeField}>-</Button>
+            </div>
+          ))
+        }
+      </div>
       </ModalBody>
       <ModalFooter>
         <Button

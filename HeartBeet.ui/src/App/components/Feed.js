@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
 import { getDonations } from '../../helpers/data/donationsData';
 import DonationCard from './DonationCard';
+import AddDonationModal from './AddDonationModal';
 
 function Feed({ user }) {
   const [donations, setDonations] = useState([]);
@@ -13,7 +13,10 @@ function Feed({ user }) {
 
   return (
     <div>
-      <Button onClick={handleAdd}>+</Button>
+      <AddDonationModal
+        user={user}
+        setDonations={setDonations}
+        />
       {
       donations?.map((donation, i) => (
         <DonationCard

@@ -25,6 +25,12 @@ const getItems = (donationId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const addItem = (item) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/items`, item)
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
+});
+
 const getSingleDonation = (donationId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/donations/${donationId}`)
     .then((resp) => resolve(resp.data))
@@ -65,5 +71,6 @@ export {
   getSingleDonation,
   addDonation,
   updateDonation,
-  deleteDonation
+  deleteDonation,
+  addItem
 };
