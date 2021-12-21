@@ -17,12 +17,26 @@ function AddDonationModal({ user, setDonations }) {
   const [isOpen, setIsOpen] = useState(false);
   const [userLocations, setUserLocations] = useState(false);
 
+  const [itemInputs, setItemInputs] = useState([{
+    itemID: '', id: uuidv4()
+  }]);
+
   const [newDonation, setNewDonation] = useState({
     isDelivery: false,
     donorId: '' || user.id,
     locationId: '',
     deliveryLocationId: '',
   });
+
+  const [items, setItems] = useState([
+    {
+      donationId: '' || newDonation.id,
+      food: '',
+      quantity: '',
+      datePrepared: '',
+      bestBy: ''
+    }
+  ]);
 
   useEffect(() => {
     getUserLocations(user.id).then(setUserLocations);
@@ -33,7 +47,7 @@ function AddDonationModal({ user, setDonations }) {
   const handleInputChange = (e) => {
     setNewDonation((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.type === 'check' ? e.target.checked : e.target.value
     }));
   };
 
@@ -53,7 +67,11 @@ function AddDonationModal({ user, setDonations }) {
       </ModalHeader>
       <ModalBody>
       <FormGroup check>
-        <Input type="checkbox" name="isDelivery" />
+        <Input
+        type="checkbox"
+        name="isDelivery"
+        onChange={handleInputChange}
+        />
         <Label check>
           Are you delivering?
         </Label>
@@ -66,35 +84,14 @@ function AddDonationModal({ user, setDonations }) {
           id="exampleSelect"
           name="locationId"
           type="select"
+          onChange={handleInputChange}
         >
           {
             userLocations.map((loc, i) => (
-              <option key={i}>loc.street, loc.city</option>
+              <option key={i}>{loc.street}, {loc.city}</option>
             ))
           }
         </Input>
-  </FormGroup>
-        <FormGroup>
-          <Label for="state">
-            State
-          </Label>
-          <Input
-            required
-            id="state"
-            name="state"
-            onChange={handleInputChange}
-          />
-           <FormGroup>
-          <Label for="zip">
-            Zip
-          </Label>
-          <Input
-            required
-            id="zip"
-            name="zip"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
         </FormGroup>
       </ModalBody>
       <ModalFooter>
