@@ -81,13 +81,18 @@ function AddDonationModal({ userId, setDonations }) {
   };
 
   const handleSubmit = () => {
-    console.warn(newDonation);
-    addDonation(newDonation).then(setDonations)
-      .then(() => {
-        itemInputs.forEach((item) => {
-          addItem(item).then((resp) => console.warn(resp));
-        });
-      });
+    addDonation(newDonation).then((resp) => setDonations(resp));
+    itemInputs.forEach((item) => {
+      addItem(item);
+    });
+    setNewDonation({
+      id: uuidv4(),
+      isDelivery: false,
+      donorId: userId,
+      locationId: '',
+      claimed: false,
+      received: false
+    });
     setIsOpen(!isOpen);
   };
 

@@ -51,7 +51,6 @@ namespace HeartBeet.DataAccess
 
             var itemId = db.ExecuteScalar<Guid>(sql, newItem);
             newItem.Id = itemId;
-
         }
 
         internal Item UpdateItem(Guid id, Item item)
