@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Table } from 'reactstrap';
 import { deleteLocation } from '../../helpers/data/LocationData';
+import EditLocationModal from './EditLocationModal';
 
 function LocationTable({ locations, userId, setUserLocations }) {
   const handleDelete = (locationId) => {
@@ -12,7 +13,6 @@ function LocationTable({ locations, userId, setUserLocations }) {
         <Table>
         <thead>
           <tr>
-            <th>#</th>
             <th>Street</th>
             <th>City</th>
             <th>State</th>
@@ -26,12 +26,15 @@ function LocationTable({ locations, userId, setUserLocations }) {
               location.softDelete
                 ? null
                 : <tr key={i}>
-                <th scope="row">{i + 1}</th>
                 <td>{location.street}</td>
                 <td>{location.city}</td>
                 <td>{location.state}</td>
                 <td>{location.zip}</td>
-                <td><i className="fas fa-pen"></i></td>
+                <td><EditLocationModal
+                      locationId={location.id}
+                      setUserLocations={setUserLocations}
+                      />
+                </td>
                 <td onClick={() => handleDelete(location.id)}><i className="far fa-trash-alt"></i></td>
               </tr>
             ))

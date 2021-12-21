@@ -84,7 +84,7 @@ function AddLocationModal({ user, setUserLocations }) {
         </FormGroup>
         </FormGroup>
       </ModalBody>
-      <ModalFooter toggle={toggle}>
+      <ModalFooter>
         <Button
           color="primary"
           onClick={handleSubmit}

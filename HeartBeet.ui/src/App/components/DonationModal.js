@@ -25,10 +25,7 @@ function DonationModal({
   }, []);
 
   const claim = () => {
-    claimDonation(donationId).then((resp) => {
-      console.warn(resp);
-      setDonation(resp);
-    });
+    claimDonation(donationId).then((resp) => setDonation(resp));
   };
 
   return (

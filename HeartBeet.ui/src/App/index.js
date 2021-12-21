@@ -9,8 +9,6 @@ import { getUserByUid } from '../helpers/data/userData';
 function App() {
   const [user, setUser] = useState({});
 
-  console.warn(user);
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {

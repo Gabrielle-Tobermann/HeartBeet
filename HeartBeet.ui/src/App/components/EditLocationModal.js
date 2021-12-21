@@ -16,15 +16,10 @@ function EditLocationModal({ locationId, setUserLocations }) {
   const [location, setLocation] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
-  console.warn(location, setLocation);
-
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    getSingleLocation(locationId).then((resp) => {
-      setLocation(resp);
-      console.warn(resp);
-    });
+    getSingleLocation(locationId).then((resp) => setLocation(resp));
   }, []);
 
   const handleInputChange = (e) => {
@@ -35,13 +30,13 @@ function EditLocationModal({ locationId, setUserLocations }) {
   };
 
   const handleSubmit = () => {
-    updateLocation(location.userId, location).then(setUserLocations);
+    updateLocation(location.userId, locationId, location).then(setUserLocations);
     setIsOpen(!isOpen);
   };
 
   return (
     <div>
-       <Button onClick={toggle}>Add a location</Button>
+      <i onClick={toggle} className="fas fa-pen"></i>
        <Modal
       toggle={toggle}
       isOpen={isOpen}
@@ -59,6 +54,7 @@ function EditLocationModal({ locationId, setUserLocations }) {
             id="street"
             name="street"
             onChange={handleInputChange}
+            value={location.street}
           />
         </FormGroup>
         <FormGroup>
@@ -70,6 +66,7 @@ function EditLocationModal({ locationId, setUserLocations }) {
             id="city"
             name="city"
             onChange={handleInputChange}
+            value={location.city}
           />
         </FormGroup>
         <FormGroup>
@@ -81,6 +78,7 @@ function EditLocationModal({ locationId, setUserLocations }) {
             id="state"
             name="state"
             onChange={handleInputChange}
+            value={location.state}
           />
            <FormGroup>
           <Label for="zip">
@@ -91,11 +89,12 @@ function EditLocationModal({ locationId, setUserLocations }) {
             id="zip"
             name="zip"
             onChange={handleInputChange}
+            value={location.zip}
           />
         </FormGroup>
         </FormGroup>
       </ModalBody>
-      <ModalFooter toggle={toggle}>
+      <ModalFooter>
         <Button
           color="primary"
           onClick={handleSubmit}
