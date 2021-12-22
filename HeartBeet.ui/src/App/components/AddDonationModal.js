@@ -87,14 +87,6 @@ function AddDonationModal({ userId, setDonations }) {
         addItem(item).then(setDonations);
       });
     });
-    setNewDonation({
-      id: uuidv4(),
-      isDelivery: false,
-      donorId: userId,
-      locationId: '',
-      claimed: false,
-      received: false
-    });
     setDonLocation({});
     setItemInputs([
       {
@@ -106,6 +98,14 @@ function AddDonationModal({ userId, setDonations }) {
         bestBy: ''
       }
     ]);
+    setNewDonation({
+      id: uuidv4(),
+      isDelivery: false,
+      donorId: userId,
+      locationId: '',
+      claimed: false,
+      received: false
+    });
     setIsOpen(!isOpen);
   };
 
