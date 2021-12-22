@@ -24,62 +24,46 @@ namespace HeartBeet.DataAccess
 
             var sql = @"select * from Donation";
 
+            var itemsSql = @"select * from item
+                             where donationId = @donationId";
+
             var donations = db.Query<Donation>(sql);
+
+            foreach (var donation in donations)
+            {
+                var items = db.Query<Item>(itemsSql, new { donationId = donation.Id });
+                donation.Items = items;
+            }
 
             return donations;
         }
 
-        internal void AddDonation(Donation newDonation, List<DonationFood> items)
+        internal void AddDonation(Donation newDonation)
         {
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"INSERT INTO [dbo].[Donation]
-                       ([isDelivery]
+                       ([id]
+                       ,[isDelivery]
                        ,[donorId]
                        ,[locationId]
-                       ,[deliveryLocationId])
+                       ,[deliveryLocationId]
+                       ,[datePosted]
+                       ,[claimed]
+                       ,[received])
                         Output inserted.Id
                      VALUES
-                           (@isDelivery
+                           (@id
+                           ,@isDelivery
                            ,@donorId
                            ,@locationId
-                           ,@deliveryLocationId)";
+                           ,@deliveryLocationId
+                           ,@datePosted
+                           ,@claimed
+                           ,@received)";
 
-            var donationId = db.ExecuteScalar<Guid>(sql, newDonation);
-            newDonation.Id = donationId;
             newDonation.DatePosted = DateTime.Now;
-
-            var itemsSql = @"INSERT INTO [dbo].[Item]
-                               ([donationId]
-                               ,[food]
-                               ,[quantity]
-                               ,[datePrepared]
-                               ,[bestBy])
-                                Output inserted.Id
-                             VALUES
-                                   (@donationId
-                                   ,@food
-                                   ,@quantity
-                                   ,@datePrepared
-                                   ,@bestBy)";
-
-            foreach (var item in items)
-            {
-                var itemParams = new
-                {
-                    Id = new Guid(),
-                    DonationId = newDonation.Id,
-                    food = item.Food,
-                    Quantity = item.Quantity,
-                    DatePrepared = item.DatePrepared,
-                    BestBy = item.BestBy
-                };
-
-                var itemId = db.ExecuteScalar<Guid>(itemsSql, itemParams);
-                item.Id = itemId;
-            }
-
-
+            var donation = db.Query(sql, newDonation);
         }
 
         internal Donation UpdateDonation(Guid id, Donation donation)

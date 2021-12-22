@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getDonations } from '../../helpers/data/donationsData';
 import DonationCard from './DonationCard';
+import AddDonationModal from './AddDonationModal';
 
 function Feed({ user }) {
   const [donations, setDonations] = useState([]);
@@ -12,6 +13,10 @@ function Feed({ user }) {
 
   return (
     <div>
+      <AddDonationModal
+        userId={user.id}
+        setDonations={setDonations}
+        />
       {
       donations?.map((donation, i) => (
         <DonationCard
@@ -22,6 +27,8 @@ function Feed({ user }) {
         datePosted={donation.datePosted}
         claimed={donation.claimed}
         userId={user.id}
+        items={donation.items}
+        setDonations={setDonations}
         />
       ))
       }

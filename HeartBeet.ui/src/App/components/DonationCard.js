@@ -7,9 +7,10 @@ import {
   CardText,
   Button
 } from 'reactstrap';
-import { getItems } from '../../helpers/data/donationsData';
+// import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
+import { deleteDonation } from '../../helpers/data/donationsData';
 
 function DonationCard({
   donationId,
@@ -17,18 +18,21 @@ function DonationCard({
   isDelivery,
   datePosted,
   claimed,
-  userId
+  userId,
+  items,
+  setDonations
 }) {
   const [donor, setDonor] = useState({});
-  const [items, setItems] = useState([]);
 
   useEffect(() => {
     getUser(donorId).then(setDonor);
   }, []);
 
-  useEffect(() => {
-    getItems(donationId).then(setItems);
-  }, []);
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteDonation(donationId).then(setDonations);
+  };
+
   return (
     <div>
       {
@@ -63,7 +67,7 @@ function DonationCard({
           </CardBody>
           {
             userId === donorId
-              ? <Button>Delete</Button>
+              ? <Button onClick={handleDelete}>Delete</Button>
               : ''
           }
         </Card>
@@ -79,7 +83,9 @@ DonationCard.propTypes = {
   isDelivery: PropTypes.bool,
   claimed: PropTypes.bool,
   datePosted: PropTypes.string,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  items: PropTypes.array,
+  setDonations: PropTypes.func
 };
 
 export default DonationCard;

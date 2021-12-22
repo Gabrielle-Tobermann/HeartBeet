@@ -26,7 +26,7 @@ function NewUserModal({ user, setUser }) {
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    if (user && !user.id) {
+    if ((user !== null && user !== false) && (user && !user.id)) {
       setIsOpen(true);
     }
   }, []);

@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import { getUserByUid } from '../helpers/data/userData';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
