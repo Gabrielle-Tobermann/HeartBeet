@@ -28,6 +28,7 @@ function Feed({ user }) {
         claimed={donation.claimed}
         userId={user.id}
         items={donation.items}
+        setDonations={setDonations}
         />
       ))
       }

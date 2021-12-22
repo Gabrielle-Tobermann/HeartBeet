@@ -10,6 +10,7 @@ import {
 // import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
+import { deleteDonation } from '../../helpers/data/donationsData';
 
 function DonationCard({
   donationId,
@@ -18,18 +19,20 @@ function DonationCard({
   datePosted,
   claimed,
   userId,
-  items
+  items,
+  setDonations
 }) {
   const [donor, setDonor] = useState({});
-  // const [donationItems, setDonationItems] = useState([]);
 
   useEffect(() => {
     getUser(donorId).then(setDonor);
   }, []);
 
-  // useEffect(() => {
-  //   getItems(donationId).then(setDonationItems);
-  // }, []);
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteDonation(donationId).then(setDonations);
+  };
+
   return (
     <div>
       {
@@ -64,7 +67,7 @@ function DonationCard({
           </CardBody>
           {
             userId === donorId
-              ? <Button>Delete</Button>
+              ? <Button onClick={handleDelete}>Delete</Button>
               : ''
           }
         </Card>
@@ -81,7 +84,8 @@ DonationCard.propTypes = {
   claimed: PropTypes.bool,
   datePosted: PropTypes.string,
   userId: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  setDonations: PropTypes.func
 };
 
 export default DonationCard;
