@@ -80,10 +80,12 @@ function AddDonationModal({ userId, setDonations }) {
     }));
   };
 
-  const handleSubmit = () => {
-    addDonation(newDonation);
-    itemInputs.forEach((item) => {
-      addItem(item).then(setDonations);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addDonation(newDonation).then(() => {
+      itemInputs.forEach((item) => {
+        addItem(item).then(setDonations);
+      });
     });
     setNewDonation({
       id: uuidv4(),
@@ -93,6 +95,17 @@ function AddDonationModal({ userId, setDonations }) {
       claimed: false,
       received: false
     });
+    setDonLocation({});
+    setItemInputs([
+      {
+        id: uuidv4(),
+        donationId: newDonation.id,
+        food: '',
+        quantity: '',
+        datePrepared: '',
+        bestBy: ''
+      }
+    ]);
     setIsOpen(!isOpen);
   };
 
@@ -199,6 +212,7 @@ function AddDonationModal({ userId, setDonations }) {
         <Button
           color="primary"
           onClick={handleSubmit}
+          type='submit'
         >
           Submit
         </Button>
@@ -211,7 +225,6 @@ function AddDonationModal({ userId, setDonations }) {
 AddDonationModal.propTypes = {
   userId: PropTypes.string,
   setDonations: PropTypes.func,
-  setDonationItems: PropTypes.func
 };
 
 export default AddDonationModal;
