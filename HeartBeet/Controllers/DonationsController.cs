@@ -1,4 +1,6 @@
-﻿using HeartBeet.DataAccess;
+﻿using FluentEmail.Core;
+using FluentEmail.Smtp;
+using HeartBeet.DataAccess;
 using HeartBeet.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace HeartBeet.Controllers
@@ -16,10 +19,12 @@ namespace HeartBeet.Controllers
     public class DonationsController : ControllerBase
     {
         DonationRepo _repo;
+        UserRepo _userRepo;
 
-        public DonationsController(DonationRepo repo)
+        public DonationsController(DonationRepo repo, UserRepo userRepo)
         {
             _repo = repo;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -62,9 +67,10 @@ namespace HeartBeet.Controllers
         }
 
         [HttpPut("claim/{id}")]
-        public IActionResult ClaimDonation(Guid id)
+        public async Task ClaimDonation(Guid id)
         {
             var donation = _repo.GetDonationById(id);
+            var donor = _userRepo.GetUserById(donation.DonorId);
 
             if (donation == null)
             {
@@ -73,7 +79,23 @@ namespace HeartBeet.Controllers
 
             donation.Claimed = !donation.Claimed;
 
-            return Ok(_repo.UpdateDonation(id, donation));
+            var sender = new SmtpSender(() => new SmtpClient(host: "localhost")
+            {
+                EnableSsl = false,
+                DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
+                PickupDirectoryLocation = @"C:\Demos"
+            });
+
+            Email.DefaultSender = sender;
+
+            var email = await Email
+                .From(emailAddress: "gabrielle.tobermann@gmail.com")
+                .To(emailAddress: $"{donor.Email}")
+                .Subject(subject: "Donation Claimed")
+                .Body(body: "Good News! Someone has claimed your donation.")
+                .SendAsync();
+
+            _repo.UpdateDonation(id, donation);
         }
 
         [HttpPut("receive/{id}")]
