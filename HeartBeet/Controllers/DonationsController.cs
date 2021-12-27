@@ -83,7 +83,7 @@ namespace HeartBeet.Controllers
             {
                 EnableSsl = false,
                 DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
-                PickupDirectoryLocation = @"C:\Demos"
+                PickupDirectoryLocation = @"C:\Users\gabri\source\heartBeetEmails"
             });
 
             Email.DefaultSender = sender;
