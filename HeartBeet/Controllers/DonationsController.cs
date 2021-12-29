@@ -79,11 +79,13 @@ namespace HeartBeet.Controllers
 
             donation.Claimed = !donation.Claimed;
 
-            var sender = new SmtpSender(() => new SmtpClient(host: "localhost")
+            var sender = new SmtpSender(() => new SmtpClient()
             {
-                EnableSsl = false,
-                DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
-                PickupDirectoryLocation = @"C:\Users\gabri\source\heartBeetEmails"
+                Host = "smtp.gmail.com",
+                Port = 587,
+                Credentials = new System.Net.NetworkCredential("heartbeet.donations@gmail.com", "heartbeet123"),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
             });
 
             Email.DefaultSender = sender;
