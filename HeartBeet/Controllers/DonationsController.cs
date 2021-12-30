@@ -5,6 +5,7 @@ using HeartBeet.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,15 @@ namespace HeartBeet.Controllers
     {
         DonationRepo _repo;
         UserRepo _userRepo;
+        readonly IConfiguration _config;
 
-        public DonationsController(DonationRepo repo, UserRepo userRepo)
+        public DonationsController(IConfiguration config,
+            DonationRepo repo,
+            UserRepo userRepo)
         {
             _repo = repo;
             _userRepo = userRepo;
+            _config = config;
         }
 
         [HttpGet]
@@ -83,7 +88,7 @@ namespace HeartBeet.Controllers
             {
                 Host = "smtp.gmail.com",
                 Port = 587,
-                Credentials = new System.Net.NetworkCredential("heartbeet.donations@gmail.com", "heartbeet123"),
+                Credentials = new System.Net.NetworkCredential("heartbeet.donations@gmail.com", _config["gmailPassword"]),
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
             });
