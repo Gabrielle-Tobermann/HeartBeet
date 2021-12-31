@@ -24,6 +24,7 @@ function Feed({ user }) {
           isDelivery={donation.isDelivery}
           donorId={donation.donorId}
           recipientId={donation.recipientId || null}
+          locationId={donation.locationId}
           donationId={donation.id}
           datePosted={donation.datePosted}
           userId={user.id}

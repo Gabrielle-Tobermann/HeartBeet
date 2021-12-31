@@ -20,7 +20,6 @@ function DonationModal({
 }) {
   const [modal, setModal] = useState(false);
   const [donation, setDonation] = useState({});
-  // const [location, setLocation] = useState({});
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
@@ -28,10 +27,6 @@ function DonationModal({
       setDonation(response);
     });
   }, []);
-
-  // useEffect(() => {
-  //   getSingleLocation(donation.locationId).then(setLocation);
-  // }, []);
 
   const claim = () => {
     claimDonation(donationId).then((resp) => setDonation(resp));
@@ -98,7 +93,6 @@ function DonationModal({
         userId === donation.recipientId
           ? <Button
               onClick={receive}
-              toggle={toggle}
               >
               Mark as Received
             </Button>
