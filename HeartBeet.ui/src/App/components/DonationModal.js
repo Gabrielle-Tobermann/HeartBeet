@@ -35,8 +35,6 @@ function DonationModal({
     receiveDonation(donationId).then((resp) => setDonation(resp));
   };
 
-  console.warn(recipientId, userId);
-
   return (
     <div>
        <Button
@@ -80,6 +78,7 @@ function DonationModal({
           ? <Button
               color="primary"
               onClick={claim}
+              toggle={toggle}
             >
           Claim Donation
         </Button>
@@ -87,7 +86,10 @@ function DonationModal({
       }
       {
         userId === recipientId
-          ? <Button onClick={receive}>
+          ? <Button
+              onClick={receive}
+              toggle={toggle}
+              >
               Mark as Received
             </Button>
           : ''

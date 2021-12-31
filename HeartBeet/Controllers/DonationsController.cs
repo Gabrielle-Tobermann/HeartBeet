@@ -22,7 +22,6 @@ namespace HeartBeet.Controllers
         DonationRepo _repo;
         UserRepo _userRepo;
         readonly IConfiguration _config;
-
         User CurrentUser => _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
 
         public DonationsController(IConfiguration config,
