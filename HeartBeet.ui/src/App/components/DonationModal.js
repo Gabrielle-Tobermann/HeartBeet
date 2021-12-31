@@ -4,11 +4,14 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  FormGroup,
+  Label,
+  Input
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { claimDonation, getSingleDonation, receiveDonation } from '../../helpers/data/donationsData';
-// import { getSingleLocation } from '../../helpers/data/LocationData';
+import { getUserLocations } from '../../helpers/data/LocationData';
 
 function DonationModal({
   name,
@@ -17,9 +20,14 @@ function DonationModal({
   userId,
   donorId,
   setDonations,
+  setToastInfo,
+  location
 }) {
   const [modal, setModal] = useState(false);
+  const [claimClicked, setClaimClicked] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [donation, setDonation] = useState({});
+  const [userLocations, setUserLocations] = useState([]);
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
@@ -28,9 +36,41 @@ function DonationModal({
     });
   }, []);
 
+  useEffect(() => {
+    getUserLocations(userId).then(setUserLocations);
+  }, []);
+
   const claim = () => {
+    if (donation.isDelivery) {
+      setClaimClicked(true);
+      setConfirmOpen(true);
+    } else {
+      setToastInfo({
+        isDelivery: donation.isDelivery,
+        street: location.street,
+        city: location.city,
+        state: location.state,
+        zip: location.zip
+      });
+      claimDonation(donationId).then((resp) => setDonation(resp));
+    }
+  };
+
+  const confirm = () => {
     claimDonation(donationId).then((resp) => setDonation(resp));
+    setConfirmOpen(!confirmOpen);
     setModal(!modal);
+  };
+
+  const handleLocationChange = (e) => {
+    const chosenLocation = userLocations.find((loc) => loc.street === e.target.value);
+    setToastInfo({
+      isDelivery: donation.isDelivery,
+      street: chosenLocation.street,
+      city: chosenLocation.city,
+      state: chosenLocation.state,
+      zip: chosenLocation.zip
+    });
   };
 
   const receive = () => {
@@ -71,9 +111,32 @@ function DonationModal({
             <div>
               {donation.claimed ? 'Claimed' : 'Unclaimed'}
             </div>
-            {/* <div>
-              <div>{location?.street} {location?.city}</div>
-            </div> */}
+            <div>
+              {
+                userLocations && claimClicked
+                  ? <FormGroup>
+                    <Label for="locations">
+                      Select
+                    </Label>
+                    <Input
+                      id="exampleSelect"
+                      name=""
+                      type="select"
+                      onChange={handleLocationChange}
+                    >
+                      <option></option>
+                      {
+                        userLocations.map((loc, j) => (
+                          <option key={j}>
+                            {loc.street}
+                          </option>
+                        ))
+                      }
+                    </Input>
+                  </FormGroup>
+                  : ''
+              }
+            </div>
             </div>
         ))
       }
@@ -88,6 +151,11 @@ function DonationModal({
           Claim Donation
         </Button>
           : ''
+      }
+      {
+        confirmOpen && <Button
+                        onClick={confirm}
+                        >Confirm</Button>
       }
       {
         userId === donation.recipientId
@@ -112,7 +180,9 @@ DonationModal.propTypes = {
   donorId: PropTypes.string,
   userId: PropTypes.string,
   claimed: PropTypes.bool,
-  setDonations: PropTypes.func
+  setDonations: PropTypes.func,
+  setToastInfo: PropTypes.func,
+  location: PropTypes.object
 };
 
 export default DonationModal;

@@ -20,7 +20,8 @@ function DonationCard({
   userId,
   items,
   locationId,
-  setDonations
+  setDonations,
+  setToastInfo
 }) {
   const [donor, setDonor] = useState({});
   const [location, setLocation] = useState({});
@@ -52,6 +53,8 @@ function DonationCard({
             donorId={donor.id}
             userId={userId}
             setDonations={setDonations}
+            setToastInfo={setToastInfo}
+            location={location}
             />
             <CardSubtitle
               className="mb-2 text-muted"
@@ -103,7 +106,8 @@ DonationCard.propTypes = {
   userId: PropTypes.string,
   items: PropTypes.array,
   setDonations: PropTypes.func,
-  locationId: PropTypes.string
+  locationId: PropTypes.string,
+  setToastInfo: PropTypes.func
 };
 
 export default DonationCard;
