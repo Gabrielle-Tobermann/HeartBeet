@@ -15,9 +15,9 @@ import { deleteDonation } from '../../helpers/data/donationsData';
 function DonationCard({
   donationId,
   donorId,
+  recipientId,
   isDelivery,
   datePosted,
-  claimed,
   userId,
   items,
   setDonations
@@ -43,8 +43,10 @@ function DonationCard({
             <DonationModal
             name={donor.name}
             items={items}
-            claimed={claimed}
             donationId={donationId}
+            donorId={donor.id}
+            recipientId={recipientId}
+            userId={userId}
             />
             <CardSubtitle
               className="mb-2 text-muted"
@@ -80,8 +82,8 @@ function DonationCard({
 DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
+  recipientId: PropTypes.string,
   isDelivery: PropTypes.bool,
-  claimed: PropTypes.bool,
   datePosted: PropTypes.string,
   userId: PropTypes.string,
   items: PropTypes.array,

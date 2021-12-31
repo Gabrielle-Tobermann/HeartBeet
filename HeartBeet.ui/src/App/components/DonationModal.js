@@ -7,12 +7,15 @@ import {
   Button
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { claimDonation, getSingleDonation } from '../../helpers/data/donationsData';
+import { claimDonation, getSingleDonation, receiveDonation } from '../../helpers/data/donationsData';
 
 function DonationModal({
   name,
   items,
   donationId,
+  userId,
+  donorId,
+  recipientId,
 }) {
   const [modal, setModal] = useState(false);
   const [donation, setDonation] = useState({});
@@ -27,6 +30,12 @@ function DonationModal({
   const claim = () => {
     claimDonation(donationId).then((resp) => setDonation(resp));
   };
+
+  const receive = () => {
+    receiveDonation(donationId).then((resp) => setDonation(resp));
+  };
+
+  console.warn(recipientId, userId);
 
   return (
     <div>
@@ -66,16 +75,23 @@ function DonationModal({
       }
     </ModalBody>
     <ModalFooter>
-      <Button
-        color="primary"
-        onClick={claim}
-      >
-        Claim Donation
-      </Button>
-      {' '}
-      <Button onClick={function noRefCheck() {}}>
-        Mark as Recevied
-      </Button>
+      {
+        userId !== donorId && !donation.claimed
+          ? <Button
+              color="primary"
+              onClick={claim}
+            >
+          Claim Donation
+        </Button>
+          : ''
+      }
+      {
+        userId === recipientId
+          ? <Button onClick={receive}>
+              Mark as Received
+            </Button>
+          : ''
+      }
     </ModalFooter>
   </Modal>
     </div>
@@ -85,7 +101,11 @@ function DonationModal({
 DonationModal.propTypes = {
   name: PropTypes.string,
   items: PropTypes.array,
-  donationId: PropTypes.string
+  donationId: PropTypes.string,
+  recipientId: PropTypes.string,
+  donorId: PropTypes.string,
+  userId: PropTypes.string,
+  claimed: PropTypes.bool
 };
 
 export default DonationModal;

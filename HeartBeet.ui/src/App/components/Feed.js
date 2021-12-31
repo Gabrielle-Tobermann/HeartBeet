@@ -19,17 +19,17 @@ function Feed({ user }) {
         />
       {
       donations?.map((donation, i) => (
-        <DonationCard
-        key={i}
-        isDelivery={donation.isDelivery}
-        donorId={donation.donorId}
-        donationId={donation.id}
-        datePosted={donation.datePosted}
-        claimed={donation.claimed}
-        userId={user.id}
-        items={donation.items}
-        setDonations={setDonations}
-        />
+        donation.received === false && <DonationCard
+          key={i}
+          isDelivery={donation.isDelivery}
+          donorId={donation.donorId}
+          recipientId={donation.recipientId || null}
+          donationId={donation.id}
+          datePosted={donation.datePosted}
+          userId={user.id}
+          items={donation.items}
+          setDonations={setDonations}
+          />
       ))
       }
     </div>
