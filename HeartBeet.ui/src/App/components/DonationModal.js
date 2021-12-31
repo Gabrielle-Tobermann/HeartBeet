@@ -8,6 +8,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { claimDonation, getSingleDonation, receiveDonation } from '../../helpers/data/donationsData';
+// import { getSingleLocation } from '../../helpers/data/LocationData';
 
 function DonationModal({
   name,
@@ -16,9 +17,11 @@ function DonationModal({
   userId,
   donorId,
   recipientId,
+  setDonations,
 }) {
   const [modal, setModal] = useState(false);
   const [donation, setDonation] = useState({});
+  // const [location, setLocation] = useState({});
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
@@ -27,12 +30,18 @@ function DonationModal({
     });
   }, []);
 
+  // useEffect(() => {
+  //   getSingleLocation(donation.locationId).then(setLocation);
+  // }, []);
+
   const claim = () => {
     claimDonation(donationId).then((resp) => setDonation(resp));
+    setModal(!modal);
   };
 
   const receive = () => {
-    receiveDonation(donationId).then((resp) => setDonation(resp));
+    receiveDonation(donationId).then((resp) => setDonations(resp));
+    setModal(!modal);
   };
 
   return (
@@ -60,14 +69,17 @@ function DonationModal({
               {item.quantity}
             </div>
             <div>
-              {item.datePrepared}
+              Date Prepared: {item.datePrepared}
             </div>
             <div>
-              {item.bestBy}
+              Best By: {item.bestBy}
             </div>
             <div>
               {donation.claimed ? 'Claimed' : 'Unclaimed'}
             </div>
+            {/* <div>
+              <div>{location?.street} {location?.city}</div>
+            </div> */}
             </div>
         ))
       }
@@ -78,7 +90,6 @@ function DonationModal({
           ? <Button
               color="primary"
               onClick={claim}
-              toggle={toggle}
             >
           Claim Donation
         </Button>
@@ -107,7 +118,8 @@ DonationModal.propTypes = {
   recipientId: PropTypes.string,
   donorId: PropTypes.string,
   userId: PropTypes.string,
-  claimed: PropTypes.bool
+  claimed: PropTypes.bool,
+  setDonations: PropTypes.func
 };
 
 export default DonationModal;

@@ -16,7 +16,6 @@ namespace HeartBeet.Controllers
 {
     [Route("api/donations")]
     [ApiController]
-    [AllowAnonymous]
     public class DonationsController : ControllerBase
     {
         DonationRepo _repo;

@@ -32,7 +32,9 @@ function App() {
     <div className='App'>
         <Router>
         <div>
-          <Navbar/>
+          <Navbar
+          user={user}
+          />
         </div>
       <div style={{ width: '80%' }}>
           <Routes

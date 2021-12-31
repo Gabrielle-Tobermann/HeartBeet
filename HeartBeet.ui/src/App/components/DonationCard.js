@@ -47,6 +47,7 @@ function DonationCard({
             donorId={donor.id}
             recipientId={recipientId}
             userId={userId}
+            setDonations={setDonations}
             />
             <CardSubtitle
               className="mb-2 text-muted"

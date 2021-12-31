@@ -46,7 +46,9 @@ const receiveDonation = (donationId) => new Promise((resolve, reject) => {
 
 const claimDonation = (donationId) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/donations/claim/${donationId}`)
-    .then((resp) => resolve(resp.data))
+    .then(() => {
+      getSingleDonation(donationId).then((resp) => resolve(resp));
+    })
     .catch((error) => reject(error));
 });
 
