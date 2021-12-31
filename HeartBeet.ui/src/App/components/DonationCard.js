@@ -15,7 +15,6 @@ import { deleteDonation } from '../../helpers/data/donationsData';
 function DonationCard({
   donationId,
   donorId,
-  recipientId,
   isDelivery,
   datePosted,
   userId,
@@ -45,7 +44,6 @@ function DonationCard({
             items={items}
             donationId={donationId}
             donorId={donor.id}
-            recipientId={recipientId}
             userId={userId}
             setDonations={setDonations}
             />
@@ -83,7 +81,6 @@ function DonationCard({
 DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
-  recipientId: PropTypes.string,
   isDelivery: PropTypes.bool,
   datePosted: PropTypes.string,
   userId: PropTypes.string,

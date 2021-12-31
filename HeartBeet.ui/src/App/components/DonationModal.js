@@ -16,7 +16,6 @@ function DonationModal({
   donationId,
   userId,
   donorId,
-  recipientId,
   setDonations,
 }) {
   const [modal, setModal] = useState(false);
@@ -96,7 +95,7 @@ function DonationModal({
           : ''
       }
       {
-        userId === recipientId
+        userId === donation.recipientId
           ? <Button
               onClick={receive}
               toggle={toggle}
