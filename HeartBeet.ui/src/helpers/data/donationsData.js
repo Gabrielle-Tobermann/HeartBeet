@@ -61,9 +61,8 @@ const addDonation = (donation) => new Promise((resolve, reject) => {
 
 const updateDonation = (donationId, donation) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/donations/${donationId}`, donation)
-    .then(() => {
-      getDonations().then((resp) => resolve(resp));
-    }).catch((error) => reject(error));
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
 });
 
 const deleteDonation = (donationId) => new Promise((resolve, reject) => {
