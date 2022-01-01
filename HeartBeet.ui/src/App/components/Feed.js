@@ -7,34 +7,13 @@ import AddDonationModal from './AddDonationModal';
 
 function Feed({ user }) {
   const [donations, setDonations] = useState([]);
-  const [toastInfo, setToastInfo] = useState({
-    isDelivery: '',
-    street: '',
-    city: '',
-    state: '',
-    zip: ''
-  });
+  const [toastInfo, setToastInfo] = useState({});
 
   useEffect(() => {
     getDonations().then(setDonations);
   }, []);
 
-  const showToast = () => {
-    <div className="p-3 my-2 rounded">
-    <Toast>
-      <ToastHeader>
-        Donation claimed!
-      </ToastHeader>
-      <ToastBody>
-        {
-          toastInfo.isDelivery
-            ? <div>This donation will be delivered at {toastInfo.street} {toastInfo.city}, {toastInfo.state} {toastInfo.zip}</div>
-            : <div>You can pick up this donation at {toastInfo.street} {toastInfo.city}, {toastInfo.state} {toastInfo.zip}</div>
-        }
-      </ToastBody>
-    </Toast>
-  </div>;
-  };
+  console.warn('toastInfo', toastInfo);
 
   return (
     <div>
@@ -43,7 +22,20 @@ function Feed({ user }) {
         setDonations={setDonations}
         />
         {
-          toastInfo && showToast()
+          toastInfo.street && <div className="p-3 my-2 rounded">
+          <Toast>
+            <ToastHeader>
+              Donation claimed!
+            </ToastHeader>
+            <ToastBody>
+              {
+                toastInfo.isDelivery
+                  ? <div>This donation will be delivered at {toastInfo.street} {toastInfo.city}, {toastInfo.state} {toastInfo.zip}</div>
+                  : <div>You can pick up this donation at {toastInfo.street} {toastInfo.city}, {toastInfo.state} {toastInfo.zip}</div>
+              }
+            </ToastBody>
+          </Toast>
+        </div>
         }
       {
       donations?.map((donation, i) => (
