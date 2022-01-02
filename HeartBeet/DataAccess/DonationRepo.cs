@@ -22,7 +22,8 @@ namespace HeartBeet.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select * from Donation";
+            var sql = @"select * from Donation
+                        order by datePosted DESC";
 
             var itemsSql = @"select * from item
                              where donationId = @donationId";
@@ -34,8 +35,8 @@ namespace HeartBeet.DataAccess
                 var items = db.Query<Item>(itemsSql, new { donationId = donation.Id });
                 donation.Items = items;
             }
-
-            return donations;
+            
+            return donations ;
         }
 
         internal void AddDonation(Donation newDonation)
