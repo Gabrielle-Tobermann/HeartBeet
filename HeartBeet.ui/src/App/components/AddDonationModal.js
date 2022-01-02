@@ -156,7 +156,9 @@ function AddDonationModal({ userId, setDonations }) {
           <option>Select a location</option>
           {
             userLocations?.map((loc, i) => (
-              <option key={i}>{loc.street}</option>
+              loc.softDelete === false
+                ? <option key={i}>{loc.street}</option>
+                : null
             ))
           }
         </Input>
