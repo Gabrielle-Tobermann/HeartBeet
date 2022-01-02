@@ -7,25 +7,31 @@ import {
   CardText,
   Button
 } from 'reactstrap';
-// import { getItems } from '../../helpers/data/donationsData';
 import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
 import { deleteDonation } from '../../helpers/data/donationsData';
+import { getSingleLocation } from '../../helpers/data/LocationData';
 
 function DonationCard({
   donationId,
   donorId,
   isDelivery,
   datePosted,
-  claimed,
   userId,
   items,
-  setDonations
+  locationId,
+  setDonations,
+  setToastInfo
 }) {
   const [donor, setDonor] = useState({});
+  const [location, setLocation] = useState({});
 
   useEffect(() => {
     getUser(donorId).then(setDonor);
+  }, []);
+
+  useEffect(() => {
+    getSingleLocation(locationId).then(setLocation);
   }, []);
 
   const handleDelete = (e) => {
@@ -43,8 +49,12 @@ function DonationCard({
             <DonationModal
             name={donor.name}
             items={items}
-            claimed={claimed}
             donationId={donationId}
+            donorId={donor.id}
+            userId={userId}
+            setDonations={setDonations}
+            setToastInfo={setToastInfo}
+            location={location}
             />
             <CardSubtitle
               className="mb-2 text-muted"
@@ -64,6 +74,17 @@ function DonationCard({
               <div>
                 {datePosted}
               </div>
+                {
+                  location
+                    ? <div>
+                      <div>Location:</div>
+                      <div>{location?.street}</div>
+                      <div>{location?.city}</div>
+                      <div>{location.state}</div>
+                      <div>{location.zip}</div>
+                    </div>
+                    : ''
+                }
           </CardBody>
           {
             userId === donorId
@@ -81,11 +102,12 @@ DonationCard.propTypes = {
   donationId: PropTypes.string,
   donorId: PropTypes.string,
   isDelivery: PropTypes.bool,
-  claimed: PropTypes.bool,
   datePosted: PropTypes.string,
   userId: PropTypes.string,
   items: PropTypes.array,
-  setDonations: PropTypes.func
+  setDonations: PropTypes.func,
+  locationId: PropTypes.string,
+  setToastInfo: PropTypes.func
 };
 
 export default DonationCard;

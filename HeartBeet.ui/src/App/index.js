@@ -12,6 +12,7 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       if (userInfo) {
+        console.warn('userInfo', userInfo);
         // eslint-disable-next-line no-undef
         userInfo.getIdToken().then((token) => sessionStorage.setItem('token', token))
           .then(getUserByUid(userInfo.uid).then((resp) => {
@@ -31,7 +32,9 @@ function App() {
     <div className='App'>
         <Router>
         <div>
-          <Navbar/>
+          <Navbar
+          user={user}
+          />
         </div>
       <div style={{ width: '80%' }}>
           <Routes

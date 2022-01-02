@@ -88,16 +88,6 @@ function AddDonationModal({ userId, setDonations }) {
       });
     });
     setDonLocation({});
-    setItemInputs([
-      {
-        id: uuidv4(),
-        donationId: newDonation.id,
-        food: '',
-        quantity: '',
-        datePrepared: '',
-        bestBy: ''
-      }
-    ]);
     setNewDonation({
       id: uuidv4(),
       isDelivery: false,
@@ -106,6 +96,15 @@ function AddDonationModal({ userId, setDonations }) {
       claimed: false,
       received: false
     });
+    setItemInputs([
+      {
+        id: uuidv4(),
+        donationId: '',
+        food: '',
+        quantity: '',
+        datePrepared: '',
+        bestBy: ''
+      }]);
     setIsOpen(!isOpen);
   };
 
@@ -114,6 +113,7 @@ function AddDonationModal({ userId, setDonations }) {
       if (id === element.id) {
         const el = element;
         el[e.target.name] = e.target.value;
+        el.donationId = newDonation.id;
       }
       return element;
     });
@@ -156,7 +156,9 @@ function AddDonationModal({ userId, setDonations }) {
           <option>Select a location</option>
           {
             userLocations?.map((loc, i) => (
-              <option key={i}>{loc.street}</option>
+              loc.softDelete === false
+                ? <option key={i}>{loc.street}</option>
+                : null
             ))
           }
         </Input>

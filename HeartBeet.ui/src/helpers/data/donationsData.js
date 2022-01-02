@@ -37,9 +37,18 @@ const getSingleDonation = (donationId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const receiveDonation = (donationId) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/donations/receive/${donationId}`)
+    .then(() => {
+      getDonations().then((resp) => resolve(resp));
+    }).catch((error) => reject(error));
+});
+
 const claimDonation = (donationId) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/donations/claim/${donationId}`)
-    .then((resp) => resolve(resp.data))
+    .then(() => {
+      getSingleDonation(donationId).then((resp) => resolve(resp));
+    })
     .catch((error) => reject(error));
 });
 
@@ -52,9 +61,8 @@ const addDonation = (donation) => new Promise((resolve, reject) => {
 
 const updateDonation = (donationId, donation) => new Promise((resolve, reject) => {
   axios.put(`${dbUrl}/donations/${donationId}`, donation)
-    .then(() => {
-      getDonations().then((resp) => resolve(resp));
-    }).catch((error) => reject(error));
+    .then((resp) => resolve(resp.data))
+    .catch((error) => reject(error));
 });
 
 const deleteDonation = (donationId) => new Promise((resolve, reject) => {
@@ -72,5 +80,6 @@ export {
   addDonation,
   updateDonation,
   deleteDonation,
-  addItem
+  addItem,
+  receiveDonation
 };

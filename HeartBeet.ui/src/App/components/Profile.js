@@ -16,10 +16,16 @@ function Profile({ user }) {
   return (
     <div>
       <div>{user.name}</div>
+      <div>{user.userType}</div>
       <AddLocationModal
       user={user}
       setUserLocations={setUserLocations}
       />
+      {
+        userLocations
+          ? <div>Here are all of your current locations: </div>
+          : ''
+      }
       <LocationTable
       locations={userLocations}
       userId={user.id}

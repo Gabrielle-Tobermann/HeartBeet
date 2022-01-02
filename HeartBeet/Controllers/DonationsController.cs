@@ -16,12 +16,12 @@ namespace HeartBeet.Controllers
 {
     [Route("api/donations")]
     [ApiController]
-    [AllowAnonymous]
     public class DonationsController : ControllerBase
     {
         DonationRepo _repo;
         UserRepo _userRepo;
         readonly IConfiguration _config;
+        User CurrentUser => _userRepo.GetUserByUid(User.FindFirst((claim) => claim.Type == "user_id").Value);
 
         public DonationsController(IConfiguration config,
             DonationRepo repo,
@@ -83,6 +83,7 @@ namespace HeartBeet.Controllers
             }
 
             donation.Claimed = !donation.Claimed;
+            donation.RecipientId = CurrentUser.Id;
 
             var sender = new SmtpSender(() => new SmtpClient()
             {
@@ -99,7 +100,9 @@ namespace HeartBeet.Controllers
                 .From(emailAddress: "gabrielle.tobermann@gmail.com")
                 .To(emailAddress: $"{donor.Email}")
                 .Subject(subject: "Donation Claimed")
-                .Body(body: "Good News! Someone has claimed your donation.")
+                .Body(body: @$"Good News!
+
+                               {CurrentUser.Name} has claimed your donation.")
                 .SendAsync();
 
             _repo.UpdateDonation(id, donation);

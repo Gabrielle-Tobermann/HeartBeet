@@ -5,10 +5,11 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { signOutUser } from '../../helpers/auth';
+import { signInUser, signOutUser } from '../../helpers/auth';
 
-const Navbar = () => (
+const Navbar = ({ user }) => (
   <div>
     <div className="sidebar-header">
       <h3>HeartBeet</h3>
@@ -30,10 +31,18 @@ const Navbar = () => (
             Profile
           </NavLink>
         </NavItem>
-        <Button onClick={signOutUser}>Sign Out</Button>
+        {
+          user
+            ? <Button onClick={signOutUser}>Sign Out</Button>
+            : <Button onClick={signInUser}>Sign In</Button>
+        }
       </Nav>
     </div>
   </div>
 );
+
+Navbar.propTypes = {
+  user: PropTypes.any
+};
 
 export default Navbar;
