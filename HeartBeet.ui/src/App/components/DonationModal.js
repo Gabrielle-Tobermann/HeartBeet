@@ -32,6 +32,7 @@ function DonationModal({
   const [claimClicked, setClaimClicked] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [donation, setDonation] = useState({});
+  const [chosenLocation, setChosenLocation] = useState({});
   const [userLocations, setUserLocations] = useState([]);
   const toggle = () => setModal(!modal);
 
@@ -66,13 +67,6 @@ function DonationModal({
       .then(() => {
         claimDonation(donationId).then((resp) => setDonation(resp));
       });
-    setConfirmOpen(!confirmOpen);
-    setModal(!modal);
-    setClaimClicked(!claimClicked);
-  };
-
-  const handleLocationChange = (e) => {
-    const chosenLocation = userLocations.find((loc) => loc.street === e.target.value);
     setToastInfo({
       isDelivery: donation.isDelivery,
       street: chosenLocation.street,
@@ -80,11 +74,18 @@ function DonationModal({
       state: chosenLocation.state,
       zip: chosenLocation.zip
     });
+    setConfirmOpen(!confirmOpen);
+    setModal(!modal);
+    setClaimClicked(!claimClicked);
+  };
+
+  const handleLocationChange = (e) => {
+    const findLoc = userLocations.find((loc) => loc.street === e.target.value);
+    setChosenLocation(findLoc);
     setDonation((prevState) => ({
       ...prevState,
-      deliveryLocationId: chosenLocation.id
+      deliveryLocationId: findLoc.id
     }));
-    console.warn(donation);
   };
 
   const receive = () => {

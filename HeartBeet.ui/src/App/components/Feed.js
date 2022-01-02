@@ -8,12 +8,13 @@ import AddDonationModal from './AddDonationModal';
 function Feed({ user }) {
   const [donations, setDonations] = useState([]);
   const [toastInfo, setToastInfo] = useState({});
+  const [toastOpen, setToastOpen] = useState(true);
+
+  const toggle = () => setToastOpen(!toastOpen);
 
   useEffect(() => {
     getDonations().then(setDonations);
   }, []);
-
-  console.warn('toastInfo', toastInfo);
 
   return (
     <div>
@@ -23,8 +24,8 @@ function Feed({ user }) {
         />
         {
           toastInfo.street && <div className="p-3 my-2 rounded">
-          <Toast>
-            <ToastHeader>
+          <Toast isOpen={toastOpen}>
+            <ToastHeader toggle={toggle}>
               Donation claimed!
             </ToastHeader>
             <ToastBody>
