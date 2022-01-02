@@ -62,7 +62,6 @@ function DonationModal({
   };
 
   const confirm = () => {
-    console.warn(donation);
     updateDonation(donationId, donation)
       .then(() => {
         claimDonation(donationId).then((resp) => setDonation(resp));
@@ -123,10 +122,13 @@ function DonationModal({
             <div>
               Best By: {item.bestBy}
             </div>
-            <div>
-              {donation.claimed ? 'Claimed' : 'Unclaimed'}
-            </div>
-            <div>
+          </div>
+        ))
+      }
+       <div>
+          {donation.claimed ? 'Claimed' : 'Unclaimed'}
+        </div>
+              <div>
               {
                 userLocations && claimClicked
                   ? <FormGroup>
@@ -152,9 +154,6 @@ function DonationModal({
                   : ''
               }
             </div>
-            </div>
-        ))
-      }
     </ModalBody>
     <ModalFooter>
       {
