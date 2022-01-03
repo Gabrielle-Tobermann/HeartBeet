@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from '../helpers/Routes';
 import Navbar from './components/Navbar';
 import { getUserByUid } from '../helpers/data/userData';
+import { NavWrapper } from '../styles/NavStyle';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,11 +32,11 @@ function App() {
   return (
     <div className='App'>
         <Router>
-        <div>
+        <NavWrapper>
           <Navbar
           user={user}
           />
-        </div>
+        </NavWrapper>
       <div style={{ width: '80%' }}>
           <Routes
           user={user}
