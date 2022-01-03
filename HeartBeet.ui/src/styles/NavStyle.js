@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const NavWrapper = styled.div`
   background-color: #840749;
   color: white;
-  width: 15%;
+  width: 20%;
 `;
 
 const StyledLink = styled(NavLink)`

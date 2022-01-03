@@ -37,7 +37,7 @@ function App() {
           user={user}
           />
         </NavWrapper>
-      <div style={{ width: '80%' }}>
+      <div style={{ width: '100%' }}>
           <Routes
           user={user}
           setUser={setUser}
