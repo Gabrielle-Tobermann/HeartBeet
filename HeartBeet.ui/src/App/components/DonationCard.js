@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card,
   CardBody,
-  CardText,
-  Button
 } from 'reactstrap';
 import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
 import { deleteDonation } from '../../helpers/data/donationsData';
 import { getSingleLocation } from '../../helpers/data/LocationData';
-import { CardHeader, Delivery } from '../../styles/DonationStyle';
+import {
+  CardHeader,
+  DatePosted,
+  Delivery,
+  Item,
+  Location,
+  NameContainer,
+  StyledCard
+} from '../../styles/DonationStyle';
 
 function DonationCard({
   donationId,
@@ -43,10 +48,10 @@ function DonationCard({
     <div>
       {
         items.length > 0
-          ? <Card
-        >
+          ? <StyledCard>
           <CardBody>
             <CardHeader>
+              <NameContainer>
               <DonationModal
               name={donor.name}
               items={items}
@@ -61,39 +66,38 @@ function DonationCard({
                 className="mb-2 text-muted"
                 tag="h6"
               >
-                <div>
-                {datePosted}
-              </div>
                 {
                   isDelivery ? 'Delivery' : 'Pickup'
                 }
               </Delivery>
+              </NameContainer>
+              <DatePosted>
+                {datePosted.split('T')[0]} {datePosted.split('T')[1].split('.')[0]}
+              </DatePosted>
             </CardHeader>
               {
                 items?.map((item, i) => (
-                  <CardText key={i}>
+                  <Item key={i}>
                     {item.food}
-                </CardText>
+                </Item>
                 ))
               }
                 {
-                  location
-                    ? <div>
-                      <div>Location:</div>
-                      <div>{location?.street}</div>
-                      <div>{location?.city}</div>
-                      <div>{location.state}</div>
-                      <div>{location.zip}</div>
-                    </div>
+                  location && !isDelivery
+                    ? <Location>{location?.street} {location?.city}, {location.state} {location.zip}</Location>
                     : ''
                 }
           </CardBody>
           {
             userId === donorId
-              ? <Button onClick={handleDelete}>Delete</Button>
+              ? <i style={{
+                padding: '1%',
+                cursor: 'pointer',
+                width: 'fit-content'
+              }}className="fas fa-trash-alt" onClick={handleDelete}></i>
               : ''
           }
-        </Card>
+        </StyledCard>
           : ''
       }
   </div>

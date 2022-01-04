@@ -35,7 +35,6 @@ namespace HeartBeet.DataAccess
                 var items = db.Query<Item>(itemsSql, new { donationId = donation.Id });
                 donation.Items = items;
             }
-            
             return donations ;
         }
 

@@ -97,7 +97,6 @@ function DonationModal({
   return (
     <div>
        <CardName
-    color="danger"
     onClick={toggle}
   >
     {name}

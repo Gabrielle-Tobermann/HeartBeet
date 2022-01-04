@@ -1,8 +1,14 @@
-import { Button } from 'reactstrap';
+import { Button, Card } from 'reactstrap';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
   width: 75%;
+`;
+
+const StyledCard = styled(Card)`
+  margin: 5%;
+  border-color: black;
+  background-color: #fdf6f6;
 `;
 
 const DonationWrapper = styled.div`
@@ -18,18 +24,43 @@ const Delivery = styled.div`
 
 const CardHeader = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+`;
+
+const DatePosted = styled.div`
+  align-self: center;
+  font-size: 20px;
 `;
 
 const CardName = styled(Button)`
   background-color: #840749;
   border-color: #840749;
-  font-size: 25px;
+  font-size: 18px;
   &:hover {
     background-color: #fbc4ab;
-  border-color: #fbc4ab;
+    border-color: #fbc4ab;
   }
+  &:focus {
+    background-color: #840749;
+    border-color: #840749;
+    box-shadow: #840749;
+  }
+`;
+
+const Item = styled.div`
+  font-weight: bold;
+  font-size: 22px;
+`;
+
+const Location = styled.div`
+  font-size: 18px;
+`;
+
+const NameContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
 `;
 
 export {
@@ -37,5 +68,10 @@ export {
   DonationWrapper,
   Delivery,
   CardHeader,
-  CardName
+  CardName,
+  DatePosted,
+  NameContainer,
+  StyledCard,
+  Item,
+  Location
 };
