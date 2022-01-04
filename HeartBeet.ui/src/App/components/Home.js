@@ -5,7 +5,8 @@ import {
   DivWrapper,
   Image,
   PhraseOne,
-  PhraseTwo
+  PhraseTwo,
+  PhraseWrapper,
 } from '../../styles/HomeStyle';
 
 function Home({ user, setUser }) {
@@ -16,12 +17,11 @@ function Home({ user, setUser }) {
         setUser={setUser}
        />
       <DivWrapper>
-        <PhraseOne>Stop wasting.</PhraseOne>
-        <Image className="MosaicAsset-module__thumb___epLhd" src="https://media.gettyimages.com/photos/fresh-organic-beetroot-over-wooden-background-picture-id684252498?k=20&amp;m=684252498&amp;s=612x612&amp;w=0&amp;h=G0EiGo4bVmoW5WnaDUEtLGBG7lm7iMYVxQG6_ZC8Trk=" alt="fresh organic beetroot over wooden background - beets stock pictures, royalty-free photos &amp; images" width="612" height="408"></Image>
-      </DivWrapper>
-      <DivWrapper>
-        <Image src="https://media.gettyimages.com/photos/healthy-drink-beet-juice-on-rustic-wooden-table-picture-id1160244902?k=20&amp;m=1160244902&amp;s=612x612&amp;w=0&amp;h=yTAEYpoXliQArGgh2flhGFh0eMQPkW3IKz3kryqTqhU=" alt="healthy drink: beet juice on rustic wooden table - beets stock pictures, royalty-free photos &amp; images" width="612" height="408"></Image>
-        <PhraseTwo>Donate with one click.</PhraseTwo>
+        <PhraseWrapper>
+          <PhraseOne>Stop wasting.</PhraseOne>
+          <PhraseTwo>Click buttons and donate.</PhraseTwo>
+        </PhraseWrapper>
+        <Image src="https://media.gettyimages.com/photos/person-holding-a-radish-picture-id74077291?k=20&amp;m=74077291&amp;s=612x612&amp;w=0&amp;h=lEzNb6CyGlmm2qWx4-WEO6N11XOjrFdF0sqRIYEKWqE=" alt="person holding a radish - beets stock pictures, royalty-free photos &amp; images" width="407" height="612" loading="lazy"/>
       </DivWrapper>
     </div>
   );
