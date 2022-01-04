@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalHeader,
-  ModalBody,
   ModalFooter,
   Button,
   FormGroup,
   Label,
-  Input
+  Input,
+  ModalBody
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {
@@ -17,7 +17,7 @@ import {
   updateDonation
 } from '../../helpers/data/donationsData';
 import { getUserLocations } from '../../helpers/data/LocationData';
-import { CardName } from '../../styles/DonationStyle';
+import { CardName, ItemDiv } from '../../styles/DonationStyle';
 
 function DonationModal({
   name,
@@ -97,6 +97,7 @@ function DonationModal({
   return (
     <div>
        <CardName
+       className='rounded-pill'
     onClick={toggle}
   >
     {name}
@@ -111,24 +112,24 @@ function DonationModal({
       {
         items.map((item, i) => (
           <div key={i}>
-            <div>
+            <ItemDiv>
               {item.food}
-            </div>
-            <div>
+            </ItemDiv>
+            <ItemDiv>
               {item.quantity}
-            </div>
-            <div>
-              Date Prepared: {item.datePrepared}
-            </div>
-            <div>
-              Best By: {item.bestBy}
-            </div>
+            </ItemDiv>
+            <ItemDiv>
+              Date Prepared: {item.datePrepared.split('T')[0]}
+            </ItemDiv>
+            <ItemDiv>
+              Best By: {item.bestBy.split('T')[0]}
+            </ItemDiv>
           </div>
         ))
       }
-       <div>
+       <ItemDiv>
           {donation.claimed ? 'Claimed' : 'Unclaimed'}
-        </div>
+        </ItemDiv>
               <div>
               {
                 userLocations && claimClicked

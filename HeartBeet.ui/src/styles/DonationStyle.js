@@ -53,7 +53,7 @@ const Item = styled.div`
   font-size: 22px;
 `;
 
-const Location = styled.div`
+const Location = styled.a`
   font-size: 18px;
 `;
 
@@ -61,6 +61,11 @@ const NameContainer = styled.div`
   display: flex;
   width: 50%;
   align-items: center;
+`;
+
+const ItemDiv = styled.div`
+  font-size: 20px;
+  margin: 2%;
 `;
 
 export {
@@ -73,5 +78,6 @@ export {
   NameContainer,
   StyledCard,
   Item,
-  Location
+  Location,
+  ItemDiv
 };

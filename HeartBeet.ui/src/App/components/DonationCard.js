@@ -84,7 +84,7 @@ function DonationCard({
               }
                 {
                   location && !isDelivery
-                    ? <Location>{location?.street} {location?.city}, {location.state} {location.zip}</Location>
+                    ? <Location href={`https://www.google.com/maps/dir/?api=1&destination=${location.street.split(' ')[0]}+${location.street.split(' ')[1]}+${location.street.split(' ')[2]}%2C${location.city}%2C${location.state}%2C${location.zip}`}>{location?.street} {location?.city}, {location.state} {location.zip}</Location>
                     : ''
                 }
           </CardBody>
