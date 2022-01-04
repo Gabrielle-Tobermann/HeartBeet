@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardBody,
-  CardSubtitle,
   CardText,
   Button
 } from 'reactstrap';
@@ -11,6 +10,7 @@ import DonationModal from './DonationModal';
 import { getUser } from '../../helpers/data/userData';
 import { deleteDonation } from '../../helpers/data/donationsData';
 import { getSingleLocation } from '../../helpers/data/LocationData';
+import { CardHeader, Delivery } from '../../styles/DonationStyle';
 
 function DonationCard({
   donationId,
@@ -46,24 +46,29 @@ function DonationCard({
           ? <Card
         >
           <CardBody>
-            <DonationModal
-            name={donor.name}
-            items={items}
-            donationId={donationId}
-            donorId={donor.id}
-            userId={userId}
-            setDonations={setDonations}
-            setToastInfo={setToastInfo}
-            location={location}
-            />
-            <CardSubtitle
-              className="mb-2 text-muted"
-              tag="h6"
-            >
-               {
-                isDelivery ? 'Delivery' : 'Pickup'
-              }
-            </CardSubtitle>
+            <CardHeader>
+              <DonationModal
+              name={donor.name}
+              items={items}
+              donationId={donationId}
+              donorId={donor.id}
+              userId={userId}
+              setDonations={setDonations}
+              setToastInfo={setToastInfo}
+              location={location}
+              />
+              <Delivery
+                className="mb-2 text-muted"
+                tag="h6"
+              >
+                <div>
+                {datePosted}
+              </div>
+                {
+                  isDelivery ? 'Delivery' : 'Pickup'
+                }
+              </Delivery>
+            </CardHeader>
               {
                 items?.map((item, i) => (
                   <CardText key={i}>
@@ -71,9 +76,6 @@ function DonationCard({
                 </CardText>
                 ))
               }
-              <div>
-                {datePosted}
-              </div>
                 {
                   location
                     ? <div>

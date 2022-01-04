@@ -17,6 +17,7 @@ import {
   updateDonation
 } from '../../helpers/data/donationsData';
 import { getUserLocations } from '../../helpers/data/LocationData';
+import { CardName } from '../../styles/DonationStyle';
 
 function DonationModal({
   name,
@@ -95,12 +96,12 @@ function DonationModal({
 
   return (
     <div>
-       <Button
+       <CardName
     color="danger"
     onClick={toggle}
   >
     {name}
-  </Button>
+  </CardName>
         <Modal
     isOpen={modal} toggle={toggle}
   >

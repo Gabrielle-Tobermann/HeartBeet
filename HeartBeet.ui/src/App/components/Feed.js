@@ -4,6 +4,7 @@ import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 import { getDonations } from '../../helpers/data/donationsData';
 import DonationCard from './DonationCard';
 import AddDonationModal from './AddDonationModal';
+import { CardContainer, DonationWrapper } from '../../styles/DonationStyle';
 
 function Feed({ user }) {
   const [donations, setDonations] = useState([]);
@@ -17,7 +18,7 @@ function Feed({ user }) {
   }, []);
 
   return (
-    <div>
+    <DonationWrapper>
       <AddDonationModal
         userId={user.id}
         setDonations={setDonations}
@@ -38,7 +39,8 @@ function Feed({ user }) {
           </Toast>
         </div>
         }
-      {
+        <CardContainer>
+        {
       donations?.map((donation, i) => (
         donation.received === false && <DonationCard
           key={i}
@@ -55,7 +57,8 @@ function Feed({ user }) {
           />
       ))
       }
-    </div>
+        </CardContainer>
+    </DonationWrapper>
   );
 }
 
