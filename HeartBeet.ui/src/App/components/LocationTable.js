@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Table } from 'reactstrap';
 import { deleteLocation } from '../../helpers/data/LocationData';
+import { StyledTable } from '../../styles/ProfileStyle';
 import EditLocationModal from './EditLocationModal';
 
 function LocationTable({ locations, userId, setUserLocations }) {
@@ -10,7 +10,7 @@ function LocationTable({ locations, userId, setUserLocations }) {
   };
   return (
     <div>
-        <Table>
+        <StyledTable>
         <thead>
           <tr>
             <th>Street</th>
@@ -40,7 +40,7 @@ function LocationTable({ locations, userId, setUserLocations }) {
             ))
           }
         </tbody>
-      </Table>
+      </StyledTable>
     </div>
   );
 }

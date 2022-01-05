@@ -15,6 +15,7 @@ const DonationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 3%;
 `;
 
 const Delivery = styled.div`
@@ -55,6 +56,11 @@ const Item = styled.div`
 
 const Location = styled.a`
   font-size: 18px;
+  color: black;
+  &:hover {
+    color: #840749;
+    font-weight: bold;
+  }
 `;
 
 const NameContainer = styled.div`
@@ -68,6 +74,36 @@ const ItemDiv = styled.div`
   margin: 2%;
 `;
 
+const AddDonation = styled(Button)`
+background-color: white;
+border-color: #840749;
+color: #840749;
+font-size: 18px;
+&:hover {
+  background-color: #fbc4ab;
+  border-color: #fbc4ab;
+}
+&:focus {
+  background-color: #840749;
+  border-color: #840749;
+`;
+
+const FieldButton = styled(Button)`
+  margin: 2%;
+  width: fit-content;
+  background-color: white;
+border-color: #840749;
+color: #840749;
+font-size: 18px;
+&:hover {
+  background-color: #fbc4ab;
+  border-color: #fbc4ab;
+}
+&:focus {
+  background-color: #840749;
+  border-color: #840749;
+`;
+
 export {
   CardContainer,
   DonationWrapper,
@@ -79,5 +115,7 @@ export {
   StyledCard,
   Item,
   Location,
-  ItemDiv
+  ItemDiv,
+  AddDonation,
+  FieldButton
 };

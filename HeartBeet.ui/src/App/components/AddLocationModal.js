@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader
+  FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader
 } from 'reactstrap';
 import { addLocation } from '../../helpers/data/LocationData';
+import { AddDonation } from '../../styles/DonationStyle';
 
 function AddLocationModal({ user, setUserLocations }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,8 @@ function AddLocationModal({ user, setUserLocations }) {
 
   return (
     <div>
-      <Button onClick={toggle}>Add a location</Button>
+      {/* AddDonation is just the name of styled button */}
+      <AddDonation onClick={toggle}>Add a location</AddDonation>
        <Modal
       toggle={toggle}
       isOpen={isOpen}
@@ -85,12 +87,11 @@ function AddLocationModal({ user, setUserLocations }) {
         </FormGroup>
       </ModalBody>
       <ModalFooter>
-        <Button
-          color="primary"
+        <AddDonation
           onClick={handleSubmit}
         >
           Submit
-        </Button>
+        </AddDonation>
       </ModalFooter>
     </Modal>
     </div>

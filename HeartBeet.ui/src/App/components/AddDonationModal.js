@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import {
-  Button,
   FormGroup,
   Input,
   Label,
@@ -13,18 +12,23 @@ import {
 } from 'reactstrap';
 import { addDonation, addItem } from '../../helpers/data/donationsData';
 import { getUserLocations } from '../../helpers/data/LocationData';
+import { AddDonation, FieldButton } from '../../styles/DonationStyle';
 
-function AddDonationModal({ userId, setDonations }) {
+function AddDonationModal({ user, setDonations }) {
   const [isOpen, setIsOpen] = useState(false);
   const [userLocations, setUserLocations] = useState([]);
-  const [newDonation, setNewDonation] = useState({
-    id: uuidv4(),
-    isDelivery: false,
-    donorId: userId,
-    locationId: '',
-    claimed: false,
-    received: false
-  });
+  const [newDonation, setNewDonation] = useState({});
+
+  useEffect(() => {
+    setNewDonation({
+      id: uuidv4(),
+      isDelivery: false,
+      donorId: user.id,
+      locationId: '',
+      claimed: false,
+      received: false
+    });
+  }, []);
 
   const [donLocation, setDonLocation] = useState({});
 
@@ -39,7 +43,7 @@ function AddDonationModal({ userId, setDonations }) {
     }]);
 
   useEffect(() => {
-    getUserLocations(userId).then((resp) => {
+    getUserLocations(user.id).then((resp) => {
       setUserLocations(resp);
     });
   }, []);
@@ -76,7 +80,8 @@ function AddDonationModal({ userId, setDonations }) {
     setDonLocation(location);
     setNewDonation((prevState) => ({
       ...prevState,
-      locationId: location.id
+      locationId: location.id,
+      donorId: user.id
     }));
   };
 
@@ -91,7 +96,7 @@ function AddDonationModal({ userId, setDonations }) {
     setNewDonation({
       id: uuidv4(),
       isDelivery: false,
-      donorId: userId,
+      donorId: '',
       locationId: '',
       claimed: false,
       received: false
@@ -122,7 +127,7 @@ function AddDonationModal({ userId, setDonations }) {
 
   return (
     <div>
-         <Button onClick={toggle}>Add a donation</Button>
+         <AddDonation onClick={toggle}>Add a donation</AddDonation>
        <Modal
       toggle={toggle}
       isOpen={isOpen}
@@ -203,21 +208,20 @@ function AddDonationModal({ userId, setDonations }) {
                     onChange={(e) => handleItemInputChange(item.id, e)}
                     />
               </FormGroup>
-              <Button onClick={addNewField}>+</Button>
-              <Button onClick={removeField}>-</Button>
+              <FieldButton onClick={addNewField}>+</FieldButton>
+              <FieldButton onClick={removeField}>-</FieldButton>
             </div>
           ))
         }
       </div>
       </ModalBody>
       <ModalFooter>
-        <Button
-          color="primary"
+        <AddDonation
           onClick={handleSubmit}
           type='submit'
         >
           Submit
-        </Button>
+        </AddDonation>
       </ModalFooter>
     </Modal>
     </div>
@@ -225,7 +229,7 @@ function AddDonationModal({ userId, setDonations }) {
 }
 
 AddDonationModal.propTypes = {
-  userId: PropTypes.string,
+  user: PropTypes.any,
   setDonations: PropTypes.func,
 };
 

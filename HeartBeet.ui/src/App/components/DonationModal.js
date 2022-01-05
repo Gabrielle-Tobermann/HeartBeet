@@ -23,7 +23,7 @@ function DonationModal({
   name,
   items,
   donationId,
-  userId,
+  user,
   donorId,
   setDonations,
   setToastInfo,
@@ -44,7 +44,7 @@ function DonationModal({
   }, []);
 
   useEffect(() => {
-    getUserLocations(userId).then(setUserLocations);
+    getUserLocations(user.id).then(setUserLocations);
   }, []);
 
   const claim = () => {
@@ -161,7 +161,7 @@ function DonationModal({
     </ModalBody>
     <ModalFooter>
       {
-        userId !== donorId && !donation.claimed && !claimClicked
+        user.id !== donorId && !donation.claimed && !claimClicked
           ? <Button
               color="primary"
               onClick={claim}
@@ -176,7 +176,7 @@ function DonationModal({
                         >Confirm</Button>
       }
       {
-        userId === donation.recipientId
+        user.id === donation.recipientId
           ? <Button
               onClick={receive}
               >
@@ -196,7 +196,7 @@ DonationModal.propTypes = {
   donationId: PropTypes.string,
   recipientId: PropTypes.string,
   donorId: PropTypes.string,
-  userId: PropTypes.string,
+  user: PropTypes.any,
   claimed: PropTypes.bool,
   setDonations: PropTypes.func,
   setToastInfo: PropTypes.func,

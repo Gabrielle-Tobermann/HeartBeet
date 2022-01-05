@@ -22,7 +22,7 @@ function DonationCard({
   donorId,
   isDelivery,
   datePosted,
-  userId,
+  user,
   items,
   locationId,
   setDonations,
@@ -57,7 +57,7 @@ function DonationCard({
               items={items}
               donationId={donationId}
               donorId={donor.id}
-              userId={userId}
+              user={user}
               setDonations={setDonations}
               setToastInfo={setToastInfo}
               location={location}
@@ -83,13 +83,14 @@ function DonationCard({
                 ))
               }
                 {
-                  location && !isDelivery
-                    ? <Location href={`https://www.google.com/maps/dir/?api=1&destination=${location.street.split(' ')[0]}+${location.street.split(' ')[1]}+${location.street.split(' ')[2]}%2C${location.city}%2C${location.state}%2C${location.zip}`}>{location?.street} {location?.city}, {location.state} {location.zip}</Location>
+                  location.street && !isDelivery
+                    ? <Location
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${location?.street.split(' ')[0]}+${location?.street.split(' ')[1]}+${location?.street.split(' ')[2]}%2C${location?.city}%2C${location?.state}%2C${location.zip}`}>{location?.street} {location?.city}, {location.state} {location.zip}</Location>
                     : ''
                 }
           </CardBody>
           {
-            userId === donorId
+            user && user.id === donorId
               ? <i style={{
                 padding: '1%',
                 cursor: 'pointer',
@@ -109,7 +110,7 @@ DonationCard.propTypes = {
   donorId: PropTypes.string,
   isDelivery: PropTypes.bool,
   datePosted: PropTypes.string,
-  userId: PropTypes.string,
+  user: PropTypes.any,
   items: PropTypes.array,
   setDonations: PropTypes.func,
   locationId: PropTypes.string,

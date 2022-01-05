@@ -20,7 +20,7 @@ function Feed({ user }) {
   return (
     <DonationWrapper>
       <AddDonationModal
-        userId={user.id}
+        user={user}
         setDonations={setDonations}
         />
         {
@@ -50,7 +50,7 @@ function Feed({ user }) {
           locationId={donation.locationId}
           donationId={donation.id}
           datePosted={donation.datePosted}
-          userId={user.id}
+          user={user}
           items={donation.items}
           setDonations={setDonations}
           setToastInfo={setToastInfo}

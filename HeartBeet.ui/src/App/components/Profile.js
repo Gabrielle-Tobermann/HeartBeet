@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getUserLocations } from '../../helpers/data/LocationData';
 import LocationTable from './LocationTable';
 import AddLocationModal from './AddLocationModal';
+import { ProfileHeader, UserType } from '../../styles/ProfileStyle';
 
 function Profile({ user }) {
   const [userLocations, setUserLocations] = useState([]);
@@ -15,17 +16,12 @@ function Profile({ user }) {
 
   return (
     <div>
-      <div>{user.name}</div>
-      <div>{user.userType}</div>
+      <ProfileHeader>{user.name}</ProfileHeader>
+      <UserType>{user.userType}</UserType>
       <AddLocationModal
       user={user}
       setUserLocations={setUserLocations}
       />
-      {
-        userLocations
-          ? <div>Here are all of your current locations: </div>
-          : ''
-      }
       <LocationTable
       locations={userLocations}
       userId={user.id}
