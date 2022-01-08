@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
-  background-color: #840749;
+  background-color: #610d48;
   color: white;
   width: 20%;
 `;

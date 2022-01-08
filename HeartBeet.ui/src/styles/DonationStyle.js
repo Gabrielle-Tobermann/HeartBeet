@@ -7,15 +7,16 @@ const CardContainer = styled.div`
 
 const StyledCard = styled(Card)`
   margin: 5%;
-  border-color: black;
-  background-color: #fdf6f6;
+  border-color: white;
+  background-color: white;
 `;
 
 const DonationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 3%;
+  padding: 3%;
+  background-color: #ffeae1;
 `;
 
 const Delivery = styled.div`
@@ -35,8 +36,11 @@ const DatePosted = styled.div`
 `;
 
 const CardName = styled(Button)`
-  background-color: #840749;
+  background-color: white;
+  color: #840749;
   border-color: #840749;
+  border-left-style: none;
+  border-right-style: none;
   font-size: 18px;
   &:hover {
     background-color: #fbc4ab;

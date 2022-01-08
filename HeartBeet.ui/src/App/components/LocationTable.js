@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { deleteLocation } from '../../helpers/data/LocationData';
-import { StyledTable } from '../../styles/ProfileStyle';
+import { StyledTable, StyledTd, TableWrapper } from '../../styles/ProfileStyle';
 import EditLocationModal from './EditLocationModal';
 
 function LocationTable({ locations, userId, setUserLocations }) {
@@ -9,15 +9,15 @@ function LocationTable({ locations, userId, setUserLocations }) {
     deleteLocation(locationId, userId).then(setUserLocations);
   };
   return (
-    <div>
-        <StyledTable>
-        <thead>
-          <tr>
-            <th>Street</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th></th>
+    <TableWrapper>
+        <StyledTable style={{ borderColor: 'white' }}>
+        <thead style={{ borderColor: 'white' }}>
+          <tr style={{ borderColor: 'white' }}>
+            <th style={{ borderColor: 'white' }}>Street</th>
+            <th style={{ borderColor: 'white' }}>City</th>
+            <th style={{ borderColor: 'white' }}>State</th>
+            <th style={{ borderColor: 'white' }}>Zip</th>
+            <th style={{ borderColor: 'white' }}></th>
           </tr>
         </thead>
         <tbody>
@@ -25,23 +25,25 @@ function LocationTable({ locations, userId, setUserLocations }) {
             locations.map((location, i) => (
               location.softDelete
                 ? null
-                : <tr key={i}>
-                <td>{location.street}</td>
-                <td>{location.city}</td>
-                <td>{location.state}</td>
-                <td>{location.zip}</td>
-                <td><EditLocationModal
+                : <tr key={i} style={{ borderColor: 'white' }}>
+                <td style={{ borderColor: 'white' }}>{location.street}</td>
+                <td style={{ borderColor: 'white' }}>{location.city}</td>
+                <td style={{ borderColor: 'white' }}>{location.state}</td>
+                <td style={{ borderColor: 'white' }}>{location.zip}</td>
+                <StyledTd style={{ borderColor: 'white' }}><EditLocationModal
                       locationId={location.id}
                       setUserLocations={setUserLocations}
                       />
-                </td>
-                <td onClick={() => handleDelete(location.id)}><i className="far fa-trash-alt"></i></td>
+                </StyledTd>
+                <StyledTd onClick={() => handleDelete(location.id)}
+                style={{ borderColor: 'white' }}
+                ><i className="far fa-trash-alt"></i></StyledTd>
               </tr>
             ))
           }
         </tbody>
       </StyledTable>
-    </div>
+    </TableWrapper>
   );
 }
 

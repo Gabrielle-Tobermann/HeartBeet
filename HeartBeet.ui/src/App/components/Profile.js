@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getUserLocations } from '../../helpers/data/LocationData';
 import LocationTable from './LocationTable';
 import AddLocationModal from './AddLocationModal';
-import { ProfileHeader, UserType } from '../../styles/ProfileStyle';
+import { ProfileHeader, ProfileWrapper, UserType } from '../../styles/ProfileStyle';
 
 function Profile({ user }) {
   const [userLocations, setUserLocations] = useState([]);
@@ -15,7 +15,7 @@ function Profile({ user }) {
   }, []);
 
   return (
-    <div>
+    <ProfileWrapper>
       <ProfileHeader>{user.name}</ProfileHeader>
       <UserType>{user.userType}</UserType>
       <AddLocationModal
@@ -27,7 +27,7 @@ function Profile({ user }) {
       userId={user.id}
       setUserLocations={setUserLocations}
       />
-    </div>
+    </ProfileWrapper>
   );
 }
 

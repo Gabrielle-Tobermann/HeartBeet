@@ -97,7 +97,7 @@ function DonationModal({
   return (
     <div>
        <CardName
-       className='rounded-pill'
+       className='rounded-0'
     onClick={toggle}
   >
     {name}
@@ -112,7 +112,7 @@ function DonationModal({
       {
         items.map((item, i) => (
           <div key={i}>
-            <ItemDiv>
+            <ItemDiv style={{ fontWeight: 'bold' }}>
               {item.food}
             </ItemDiv>
             <ItemDiv>
@@ -124,6 +124,7 @@ function DonationModal({
             <ItemDiv>
               Best By: {item.bestBy.split('T')[0]}
             </ItemDiv>
+            <br/>
           </div>
         ))
       }

@@ -2,8 +2,15 @@ import { Table } from 'reactstrap';
 import styled from 'styled-components';
 
 const ProfileHeader = styled.div`
-  font-size: 30px;
-  margin-top: 1%;
+  font-size: 35px;
+  font-weight: bold;
+  color: #5a0432;
+  padding-top: 1%;
+`;
+
+const ProfileWrapper = styled.div`
+  background-color: #ffeae1;
+  min-height: 100vh;
 `;
 
 const UserType = styled.div`
@@ -13,8 +20,34 @@ const UserType = styled.div`
   margin: 1%;
 `;
 
-const StyledTable = styled(Table)`
-  margin: 5%;
+const TableWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
-export { ProfileHeader, UserType, StyledTable };
+const StyledTable = styled(Table)`
+  width: 75%;
+  margin-top: 5%;
+  font-size: 20px;
+  border-color: black;
+`;
+
+const StyledTr = styled.tr`
+  border-color: white;
+`;
+
+const StyledTd = styled.td`
+  &: hover {
+    cursor: pointer
+  }
+`;
+
+export {
+  ProfileHeader,
+  UserType,
+  StyledTable,
+  TableWrapper,
+  ProfileWrapper,
+  StyledTd,
+  StyledTr
+};
